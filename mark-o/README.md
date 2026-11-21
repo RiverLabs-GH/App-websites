@@ -22,6 +22,7 @@ npm run dev        # http://localhost:5173
 | `npm run build` | Type-check, build, prerender, write `sitemap.xml` and `robots.txt` into `dist/` |
 | `npm run preview` | Serve `dist/` locally |
 | `npm run check` | Check `dist/` after a build: links, assets, SEO tags, no third-party requests (the same check CI runs) |
+| `npm run smoke -- <url>` | Fetch a served copy of the site and check it resolves where it says it lives (run by the deploy workflow after publishing) |
 | `npm run assets` | Rebuild optimised images, favicon and wordmark from the mark.O repo (see below) |
 
 To check the subpath behaviour exactly as GitHub Pages serves it, put `dist/` at `/App-websites/mark-o/` under any static server and open that URL. All asset URLs are relative, so it also works from any other path.
@@ -83,11 +84,15 @@ Two workflows live at the repository root in `.github/workflows/`, both scoped t
 | Workflow | Runs on | What it does |
 |---|---|---|
 | `mark-o-ci.yml` | every pull request that touches `mark-o/` | `npm ci`, `npm run build` (type-check, bundle, prerender), `npm run check`. Publishes nothing. |
-| `deploy-mark-o.yml` | push to `main` that touches `mark-o/`, or run by hand | The same build and check, then publishes `mark-o/dist` to GitHub Pages. A failed check stops the deploy. |
+| `deploy-mark-o.yml` | push to `main` that touches `mark-o/`, or run by hand | The same build and check, then stages the build under a `mark-o/` folder and publishes it to GitHub Pages, then runs `npm run smoke` against the live site. A failed check stops the deploy; a failed smoke test fails the run. |
 
 `npm run check` (`tools/check-dist.mjs`) fails the build if the output has: an empty or missing prerender, a root-absolute URL (it would break under the subpath), a missing file or broken `#anchor`, a dangling `aria-controls` or `aria-labelledby`, an image without alt text, a missing title, description, canonical, Open Graph tag, sitemap or robots file, a third-party URL, a network API in the bundle, or a file over 50 MB.
 
+A repository has one Pages site, and it serves exactly one artifact at its root. The deploy therefore stages the build into a folder named `mark-o/` before uploading, so the site is served at `https://riverlabs-gh.github.io/App-websites/mark-o/` and a later app module can be added beside it. The bare `https://riverlabs-gh.github.io/App-websites/` has no page of its own.
+
 The deploy job reads the site's address from the Pages settings (`actions/configure-pages`) and passes it to the build as `VITE_SITE_URL`, so a custom domain needs no change. Local builds use `.env.production`.
+
+`npm run smoke` (`tools/smoke-live.mjs`) fetches the live page and checks that its canonical link matches the address it is served at, that the Open Graph image, sitemap, `robots.txt` and every asset the page references resolve, and that the video answers range requests. It retries a 404 for about a minute, because Pages can take a moment to serve a fresh deploy. The build-folder check cannot see any of this, which is how a deploy once published the site at the wrong address.
 
 ### One-time setup
 
