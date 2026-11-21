@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { features } from '../data/content'
 import AppWindow from './AppWindow.vue'
+import FeatureCatalog from './FeatureCatalog.vue'
 </script>
 
 <template>
@@ -25,12 +26,7 @@ import AppWindow from './AppWindow.vue'
         </div>
       </article>
 
-      <ul class="more">
-        <li v-for="(m, i) in features.more" :key="m.title" v-reveal="i * 70">
-          <h3 class="h3">{{ m.title }}</h3>
-          <p>{{ m.text }}</p>
-        </li>
-      </ul>
+      <FeatureCatalog />
     </div>
   </section>
 </template>
@@ -44,12 +40,8 @@ import AppWindow from './AppWindow.vue'
 .ticks { display: grid; gap: var(--s-2); margin-top: var(--s-2); color: var(--c-ink-2); }
 .ticks li { position: relative; padding-left: 1.5rem; }
 .ticks li::before { content: ''; position: absolute; left: 0; top: 0.62em; width: 0.75rem; height: 1px; background: var(--c-ink-3); }
-.more { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s-7); margin-top: var(--s-9); padding-top: var(--s-7); border-top: 1px solid var(--c-line); }
-.more h3 { margin-bottom: var(--s-2); }
-.more p { color: var(--c-ink-2); }
 @media (max-width: 960px) {
   .row, .row--flip { grid-template-columns: 1fr; }
   .row--flip .row__copy { order: 0; }
-  .more { grid-template-columns: 1fr; gap: var(--s-6); }
 }
 </style>

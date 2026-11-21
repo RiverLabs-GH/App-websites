@@ -109,6 +109,37 @@ else {
   }
 }
 
+// 7c. The feature catalogue lists every feature its heading claims, each in a tab panel that exists,
+// with no description over 30 words.
+{
+  const start = html.indexOf('id="all-features"')
+  if (start < 0) fail('feature catalogue (#all-features) is missing')
+  else {
+    const seg = html.slice(start, html.indexOf('</section>', start))
+    const claimed = Number(seg.match(/(\d+) features, by what you do/)?.[1])
+    const items = [...seg.matchAll(/<dt[^>]*>([^<]*)<\/dt><dd[^>]*>([^<]*)<\/dd>/g)]
+    if (!claimed) fail('feature catalogue heading does not state a count')
+    else if (items.length !== claimed) fail(`feature catalogue heading says ${claimed} features but the page lists ${items.length}`)
+    const tabs = (seg.match(/role="tab"/g) || []).length
+    const panels = (seg.match(/role="tabpanel"/g) || []).length
+    if (tabs === 0 || tabs !== panels) fail(`feature catalogue has ${tabs} tabs and ${panels} panels`)
+    for (const [, name, text] of items) {
+      const words = text.trim().split(/\s+/).length
+      if (words > 30) fail(`feature "${name}" has ${words} words (limit 30)`)
+    }
+  }
+}
+
+// 7d. No rule may hide the whole document (a selector that is only html, body or :root, optionally with :not(...)).
+for (const css of files.filter((f) => f.endsWith('.css'))) {
+  const text = await readFile(css, 'utf8')
+  for (const m of text.matchAll(/(?:^|[}\s])((?:html|body|:root)(?::not\([^)]*\))*)\s*\{([^}]*)\}/g)) {
+    if (/(?:display\s*:\s*none|visibility\s*:\s*hidden|opacity\s*:\s*0(?![.\d]))/.test(m[2])) {
+      fail(`${path.basename(css)} has a rule that hides the whole page: ${m[1]}{${m[2].trim()}}`)
+    }
+  }
+}
+
 // 8. Fully static and private: no third-party hosts anywhere in the built page or bundles.
 const allowed = [
   /^https?:\/\/www\.w3\.org\//, /^https:\/\/schema\.org/, /^https:\/\/vuejs\.org\//,

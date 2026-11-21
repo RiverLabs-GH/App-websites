@@ -75,7 +75,10 @@ code, kbd { font-family: var(--font-mono); font-size: 0.9em; }
 .on-dark .btn--primary:hover { background: var(--c-line-soft); }
 .on-dark .btn--soft { background: var(--c-line-dark); color: var(--c-on-dark-2); }
 .on-dark .btn--secondary { color: var(--c-on-dark); border-color: var(--c-line-dark-hover); }
-/* Quiet pill for tabs and steps. Defined for dark surfaces only (.on-dark); .on marks the chosen one. */
+/* Quiet pill for tabs and steps; .on marks the chosen one. Light by default, with .on-dark rules below. */
+.btn--quiet { background: transparent; color: var(--c-ink-2); border-color: var(--c-line); }
+.btn--quiet:hover { color: var(--c-ink); border-color: var(--c-ink-3); }
+.btn--quiet.on { background: var(--c-ink); color: var(--c-bg); border-color: var(--c-ink); }
 .on-dark .btn--quiet { background: transparent; color: var(--c-on-dark-2); border-color: var(--c-line-dark); }
 .on-dark .btn--quiet:hover { color: var(--c-on-dark); border-color: var(--c-line-dark-hover); }
 .on-dark .btn--quiet.on { background: var(--c-on-dark); color: var(--c-black); border-color: var(--c-on-dark); }
