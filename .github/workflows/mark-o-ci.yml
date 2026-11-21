@@ -1,0 +1,38 @@
+name: mark-o CI
+
+# Runs on every pull request that touches the site: type-check, build, prerender,
+# then check the build output (links, assets, SEO, no third-party requests).
+# Nothing is published from here; deployment is in deploy-mark-o.yml.
+on:
+  pull_request:
+    paths:
+      - 'mark-o/**'
+      - '.github/workflows/mark-o-ci.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: mark-o-ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: mark-o
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: mark-o/package-lock.json
+      - run: npm ci
+      - name: Build (type-check, bundle, prerender)
+        run: npm run build
+      - name: Check the build output
+        run: npm run check

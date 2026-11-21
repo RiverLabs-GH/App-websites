@@ -1,8 +1,13 @@
 name: Deploy mark-o site
 
-# Builds the mark-o module and publishes it to GitHub Pages at
-# https://<owner>.github.io/App-websites/mark-o/
-# One-time setup: Settings > Pages > Build and deployment > Source: GitHub Actions.
+# Publishes the mark-o module to GitHub Pages at
+#   https://<owner>.github.io/App-websites/mark-o/
+# whenever it changes on main (or when run by hand). The same build and checks as CI run first,
+# so a broken build is never published.
+#
+# One-time setup:
+#   1. The repository must be public (GitHub Pages on a private repository needs a paid plan).
+#   2. Settings > Pages > Build and deployment > Source: GitHub Actions.
 on:
   push:
     branches: [main]
@@ -16,13 +21,15 @@ permissions:
   pages: write
   id-token: write
 
+# One deployment at a time; a newer push replaces a queued one but never cancels a running deploy.
 concurrency:
   group: pages
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     defaults:
       run:
         working-directory: mark-o
@@ -33,10 +40,16 @@ jobs:
           node-version: 22
           cache: npm
           cache-dependency-path: mark-o/package-lock.json
+      # Reads the site's real address from the Pages settings, so a custom domain just works.
+      - id: pages
+        uses: actions/configure-pages@v5
       - run: npm ci
-      - run: npm run build
+      - name: Build (type-check, bundle, prerender)
+        run: npm run build
         env:
-          VITE_SITE_URL: https://${{ github.repository_owner }}.github.io/App-websites/mark-o/
+          VITE_SITE_URL: ${{ steps.pages.outputs.base_url }}/mark-o/
+      - name: Check the build output
+        run: npm run check
       - uses: actions/upload-pages-artifact@v3
         with:
           path: mark-o/dist
@@ -44,6 +57,7 @@ jobs:
   deploy:
     needs: build
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
