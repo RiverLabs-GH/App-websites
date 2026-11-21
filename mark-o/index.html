@@ -3,8 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>mark.O: a private Markdown workspace for Mac</title>
-    <meta name="description" content="mark.O renders what your AI agents write, keeps every version and lets you review what changed. A private, offline Markdown workspace for macOS. Read. Write. Organise." />
+    <title>mark.O: Markdown &amp; OKF Reader for Mac, Private and Offline</title>
+    <meta name="description" content="Read, review and verify what your AI agents write. mark.O is a private, offline Markdown and OKF reader for macOS with version history." />
     <meta name="theme-color" content="#ffffff" />
     <link rel="canonical" href="%VITE_SITE_URL%" />
     <link rel="icon" type="image/png" sizes="32x32" href="./favicon/favicon-32.png" />
@@ -29,9 +29,25 @@
         "@context": "https://schema.org",
         "@type": "SoftwareApplication",
         "name": "mark.O",
+        "url": "%VITE_SITE_URL%",
         "applicationCategory": "ProductivityApplication",
         "operatingSystem": "macOS",
-        "description": "A private, offline Markdown workspace for macOS.",
+        "description": "A private, offline Markdown workspace for macOS, with a Markdown Reader for any file or folder and an OKF Reader for knowledge bundles.",
+        "image": "%VITE_SITE_URL%images/og-image.jpg",
+        "screenshot": [
+          "%VITE_SITE_URL%images/read.webp",
+          "%VITE_SITE_URL%images/okf-read.webp",
+          "%VITE_SITE_URL%images/okf-graph.webp"
+        ],
+        "featureList": [
+          "Renders Markdown, math, Mermaid diagrams and highlighted code, all offline",
+          "Version history with side-by-side diffs and one-click restore",
+          "Reads Open Knowledge Format (OKF) knowledge bundles, with a graph, a review queue and Verify",
+          "Edits front matter without changing any other byte",
+          "Reads Obsidian-style wikilinks, embeds and tags",
+          "Exports to PDF, HTML and EPUB",
+          "Works offline with no account, analytics or telemetry"
+        ],
         "publisher": { "@type": "Organization", "name": "River Labs" }
       }
     </script>
