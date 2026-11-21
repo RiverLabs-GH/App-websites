@@ -21,6 +21,7 @@ npm run dev        # http://localhost:5173
 | `npm run dev` | Dev server with hot reload |
 | `npm run build` | Type-check, build, prerender, write `sitemap.xml` and `robots.txt` into `dist/` |
 | `npm run preview` | Serve `dist/` locally |
+| `npm run check` | Check `dist/` after a build: links, assets, SEO tags, no third-party requests (the same check CI runs) |
 | `npm run assets` | Rebuild optimised images, favicon and wordmark from the mark.O repo (see below) |
 
 To check the subpath behaviour exactly as GitHub Pages serves it, put `dist/` at `/App-websites/mark-o/` under any static server and open that URL. All asset URLs are relative, so it also works from any other path.
@@ -75,15 +76,26 @@ ffmpeg -ss 8 -i public/videos/mark-o-launch-web.mp4 -frames:v 1 -q:v 4 public/vi
 
 The film contains Pexels stock footage of a laptop (licence note: `product-video/public/footage/SOURCES.md` in the mark.O repo). The page says the laptop is stock and that mark.O is not endorsed by Apple. The film has no caption track yet.
 
-## Deploy
+## CI and deploy
 
-`.github/workflows/deploy-mark-o.yml` (at the repo root) builds this folder and publishes it to GitHub Pages whenever `mark-o/**` changes on `main`.
+Two workflows live at the repository root in `.github/workflows/`, both scoped to `mark-o/**`:
+
+| Workflow | Runs on | What it does |
+|---|---|---|
+| `mark-o-ci.yml` | every pull request that touches `mark-o/` | `npm ci`, `npm run build` (type-check, bundle, prerender), `npm run check`. Publishes nothing. |
+| `deploy-mark-o.yml` | push to `main` that touches `mark-o/`, or run by hand | The same build and check, then publishes `mark-o/dist` to GitHub Pages. A failed check stops the deploy. |
+
+`npm run check` (`tools/check-dist.mjs`) fails the build if the output has: an empty or missing prerender, a root-absolute URL (it would break under the subpath), a missing file or broken `#anchor`, a dangling `aria-controls` or `aria-labelledby`, an image without alt text, a missing title, description, canonical, Open Graph tag, sitemap or robots file, a third-party URL, a network API in the bundle, or a file over 50 MB.
+
+The deploy job reads the site's address from the Pages settings (`actions/configure-pages`) and passes it to the build as `VITE_SITE_URL`, so a custom domain needs no change. Local builds use `.env.production`.
+
+### One-time setup
 
 1. Make the repository public. GitHub Pages on a private repository needs a paid plan.
 2. In **Settings > Pages**, set **Source** to **GitHub Actions**.
-3. Push to `main`. The site goes live at `https://riverlabs-gh.github.io/App-websites/mark-o/`.
+3. Merge to `main`. The site goes live at `https://riverlabs-gh.github.io/App-websites/mark-o/`, and the run's summary shows the URL.
 
-The workflow sets `VITE_SITE_URL` from the repository owner. If the site moves to a custom domain, change `.env.production` and the workflow value, and rebuild. The Vite `base` is `./`, so no other path setting is needed.
+To publish without a code change (for example after flipping `download.enabled`), use **Actions > Deploy mark-o site > Run workflow**.
 
 ## Facts the site keeps true
 
