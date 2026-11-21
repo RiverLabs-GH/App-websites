@@ -70,8 +70,14 @@ for (const m of html.matchAll(/<img\b[^>]*>/g)) {
 }
 
 // 7. SEO: title, description, canonical, Open Graph, sitemap and robots.
-if (!/<title>[^<]{5,}<\/title>/.test(html)) fail('missing <title>')
-if (!/name="description" content="[^"]{40,}"/.test(html)) fail('missing meta description')
+// Lengths are what a searcher sees, so decode HTML entities (&amp; is one character) before measuring.
+const decode = (t) => t?.replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#39;/g, "'")
+const title = decode(html.match(/<title>([^<]*)<\/title>/)?.[1])
+if (!title) fail('missing <title>')
+else if (title.length < 20 || title.length > 60) fail(`<title> is ${title.length} characters (want 20 to 60)`)
+const description = decode(html.match(/name="description" content="([^"]*)"/)?.[1])
+if (!description) fail('missing meta description')
+else if (description.length < 70 || description.length > 160) fail(`meta description is ${description.length} characters (want 70 to 160)`)
 const canonical = html.match(/rel="canonical" href="([^"]+)"/)?.[1]
 if (!canonical || !/^https:\/\//.test(canonical)) fail('canonical link is missing or not an absolute https URL')
 for (const p of ['og:title', 'og:description', 'og:image', 'og:url']) {
@@ -85,6 +91,22 @@ for (const f of ['sitemap.xml', 'robots.txt']) {
 if (canonical && existsSync(path.join(dist, 'sitemap.xml'))) {
   const sm = await readFile(path.join(dist, 'sitemap.xml'), 'utf8')
   if (!sm.includes(`<loc>${canonical}</loc>`)) fail('sitemap.xml does not list the canonical URL')
+}
+
+// 7b. Structured data parses, names the app, lists its features, and every URL in it resolves in dist.
+const ld = html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)?.[1]
+if (!ld) fail('no JSON-LD structured data')
+else {
+  let data
+  try { data = JSON.parse(ld) } catch (e) { fail(`JSON-LD is not valid JSON: ${e.message}`) }
+  if (data) {
+    if (data['@type'] !== 'SoftwareApplication') fail('JSON-LD @type is not SoftwareApplication')
+    if (!Array.isArray(data.featureList) || data.featureList.length === 0) fail('JSON-LD has no featureList')
+    for (const u of [data.url, data.image, ...[].concat(data.screenshot || [])].filter(Boolean)) {
+      if (canonical && !u.startsWith(canonical)) fail(`JSON-LD URL ${u} is not under the canonical address`)
+      else if (canonical && u !== canonical && !existsSync(path.join(dist, u.slice(canonical.length)))) fail(`JSON-LD URL ${u} has no file in dist`)
+    }
+  }
 }
 
 // 8. Fully static and private: no third-party hosts anywhere in the built page or bundles.
