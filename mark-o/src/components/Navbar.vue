@@ -31,9 +31,9 @@ const close = () => { open.value = false }
 <style scoped>
 .nav {
   position: sticky; top: 0; z-index: 50; height: var(--nav-h);
-  background: rgb(255 255 255 / 0.8); backdrop-filter: saturate(180%) blur(20px);
+  background: color-mix(in srgb, var(--c-bg) 80%, transparent); backdrop-filter: saturate(180%) blur(20px);
   -webkit-backdrop-filter: saturate(180%) blur(20px);
-  border-bottom: 1px solid rgb(0 0 0 / 0.06);
+  border-bottom: 1px solid var(--c-line-soft);
 }
 .nav__inner { height: 100%; display: flex; align-items: center; gap: var(--s-6); }
 .brand { display: inline-flex; margin-right: auto; }
@@ -55,7 +55,7 @@ const close = () => { open.value = false }
   .nav--open .nav__toggle span:last-child { transform: translateY(-3.75px) rotate(-45deg); }
   .nav__links {
     position: absolute; inset: var(--nav-h) 0 auto 0; flex-direction: column; align-items: stretch; gap: 0;
-    background: #fff; border-bottom: 1px solid var(--c-line-soft); padding: var(--s-2) var(--gutter) var(--s-5);
+    background: var(--c-bg); border-bottom: 1px solid var(--c-line-soft); padding: var(--s-2) var(--gutter) var(--s-5);
     visibility: hidden; opacity: 0; transform: translateY(-6px);
     transition: opacity var(--t-fast), transform var(--t-fast), visibility var(--t-fast);
   }

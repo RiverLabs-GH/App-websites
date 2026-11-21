@@ -15,8 +15,8 @@ import { problem } from '../data/content'
         <h3 class="group__title eyebrow">{{ g.heading }}</h3>
         <ul class="rows">
           <li v-for="r in g.rows" :key="r.pain" class="row">
-            <p class="row__pain">{{ r.pain }}</p>
-            <p class="row__fix">{{ r.fix }}</p>
+            <p class="h3 row__pain">{{ r.pain }}</p>
+            <p class="lead row__fix">{{ r.fix }}</p>
           </li>
         </ul>
       </div>
@@ -32,8 +32,8 @@ import { problem } from '../data/content'
   display: grid; grid-template-columns: 1fr 1.25fr; gap: var(--s-6); align-items: baseline;
   padding-block: var(--s-5); border-bottom: 1px solid var(--c-line);
 }
-.row__pain { font-size: var(--fs-h3); font-weight: 600; letter-spacing: -0.015em; line-height: 1.25; color: var(--c-ink-3); }
-.row__fix { font-size: var(--fs-lead); line-height: 1.4; letter-spacing: -0.01em; }
+.row__pain { color: var(--c-ink-3); }
+.row__fix { color: var(--c-ink); }
 @media (max-width: 760px) {
   .row { grid-template-columns: 1fr; gap: var(--s-2); }
 }

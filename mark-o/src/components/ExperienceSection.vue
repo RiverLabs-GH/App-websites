@@ -45,9 +45,8 @@ withDefaults(defineProps<{ data: Experience; tone?: 'alt' | 'plain'; flip?: bool
 .points h3 { margin-bottom: var(--s-2); }
 .points p { color: var(--c-ink-2); }
 .extras { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-6); margin-top: var(--s-9); }
-.extras figcaption { margin-top: var(--s-4); font-size: 0.9375rem; color: var(--c-ink-3); max-width: 34rem; }
-.extras figure { margin: 0; }
-.note { max-width: var(--w-text); margin: var(--s-8) auto 0; text-align: center; font-size: 0.9375rem; color: var(--c-ink-3); }
+.extras figcaption { margin-top: var(--s-4); font-size: var(--fs-small); color: var(--c-ink-3); max-width: 34rem; }
+.note { max-width: var(--w-text); margin: var(--s-8) auto 0; text-align: center; font-size: var(--fs-small); color: var(--c-ink-3); }
 @media (max-width: 960px) {
   .stage, .stage--flip { grid-template-columns: 1fr; }
   .stage--flip .stage__shot { order: 0; }

@@ -24,7 +24,7 @@ import DownloadButton from './DownloadButton.vue'
 <style scoped>
 .hero {
   padding-top: clamp(2.5rem, 1.5rem + 4vw, 5rem);
-  background: linear-gradient(180deg, var(--c-bg) 0%, var(--c-bg-alt) 100%);
+  background: var(--bg-fade);
   overflow: clip;
 }
 .hero__copy { display: grid; justify-items: center; text-align: center; gap: var(--s-5); max-width: 56rem; }
