@@ -185,11 +185,6 @@ export const features = {
       img: image('history-panel', 'The Version History panel listing a coding agent edit, a research agent edit, a manual snapshot and an auto-save.'),
     },
   ],
-  more: [
-    { title: 'Organise', text: 'Wikilinks, embeds, tags and backlinks, with a vault index and Spaces and Files in the sidebar. Notes stay plain .md files in folders you choose.' },
-    { title: 'Send it on', text: 'Export to PDF, self-contained HTML or EPUB 3. An open bundle can also export to a zip or JSON, behind a validation check.' },
-    { title: 'Make it yours', text: 'Eight built-in document themes, light and dark, plus custom themes and a font picker.' },
-  ],
 }
 
 export const why = {
