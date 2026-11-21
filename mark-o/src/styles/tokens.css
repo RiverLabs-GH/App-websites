@@ -44,8 +44,8 @@
   --fs-eyebrow: 0.8125rem;
   --fs-small: 0.9375rem;
   --fs-body: clamp(1rem, 0.96rem + 0.2vw, 1.125rem);
-  --fs-lead: clamp(1.1875rem, 1.05rem + 0.6vw, 1.5rem);
-  --fs-h3: clamp(1.25rem, 1.1rem + 0.6vw, 1.625rem);
+  --fs-lead: clamp(1.125rem, 1rem + 0.5vw, 1.25rem);
+  --fs-h3: clamp(1.1875rem, 1.1rem + 0.3vw, 1.3125rem);
   --fs-h2: clamp(2rem, 1.3rem + 3vw, 3.5rem);
   --fs-h2-sm: clamp(1.75rem, 1.2rem + 2vw, 2.75rem);
   --fs-h3-lg: clamp(1.5rem, 1.1rem + 1.6vw, 2.25rem);
