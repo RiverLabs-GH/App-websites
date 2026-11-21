@@ -90,9 +90,11 @@ Two workflows live at the repository root in `.github/workflows/`, both scoped t
 
 A repository has one Pages site, and it serves exactly one artifact at its root. The deploy therefore stages the build into a folder named `mark-o/` before uploading, so the site is served at `https://riverlabs-gh.github.io/App-websites/mark-o/` and a later app module can be added beside it. The bare `https://riverlabs-gh.github.io/App-websites/` has no page of its own.
 
+The build also writes a branded `404.html` (self-contained, `noindex`, absolute URLs only, because it is served at any depth). The deploy moves it from `mark-o/` to the root of the published site, which is the one place GitHub Pages looks for it, and it then answers every unknown address under the site.
+
 The deploy job reads the site's address from the Pages settings (`actions/configure-pages`) and passes it to the build as `VITE_SITE_URL`, so a custom domain needs no change. Local builds use `.env.production`.
 
-`npm run smoke` (`tools/smoke-live.mjs`) fetches the live page and checks that its canonical link matches the address it is served at, that the Open Graph image, sitemap, `robots.txt` and every asset the page references resolve, and that the video answers range requests. It retries a 404 for about a minute, because Pages can take a moment to serve a fresh deploy. The build-folder check cannot see any of this, which is how a deploy once published the site at the wrong address.
+`npm run smoke` (`tools/smoke-live.mjs`) fetches the live page and checks that its canonical link matches the address it is served at, that the Open Graph image, sitemap, `robots.txt` and every asset the page references resolve, that the video answers range requests, and that an unknown address returns the branded 404 page with a 404 status. It retries a 404 for about a minute, because Pages can take a moment to serve a fresh deploy. The build-folder check cannot see any of this, which is how a deploy once published the site at the wrong address.
 
 ### One-time setup
 

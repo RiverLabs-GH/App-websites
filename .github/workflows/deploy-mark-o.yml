@@ -58,6 +58,8 @@ jobs:
         run: |
           mkdir -p _site/mark-o
           cp -R dist/. _site/mark-o/
+          # Pages serves 404.html from the root of the published site, for every unknown address.
+          mv _site/mark-o/404.html _site/404.html
       - uses: actions/upload-pages-artifact@v3
         with:
           path: mark-o/_site
