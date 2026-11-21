@@ -22,7 +22,7 @@ code, kbd { font-family: var(--font-mono); font-size: 0.9em; }
 
 .skip-link {
   position: absolute; left: var(--s-4); top: -4rem; z-index: 100;
-  background: var(--c-ink); color: #fff; padding: var(--s-2) var(--s-4); border-radius: var(--r-pill);
+  background: var(--c-ink); color: var(--c-bg); padding: var(--s-2) var(--s-4); border-radius: var(--r-pill);
   text-decoration: none; transition: top var(--t-fast);
 }
 .skip-link:focus { top: var(--s-3); }
@@ -40,8 +40,12 @@ code, kbd { font-family: var(--font-mono); font-size: 0.9em; }
 .on-dark .eyebrow { color: var(--c-on-dark-2); }
 .h1 { font-size: var(--fs-h1); font-weight: 700; line-height: 1.04; letter-spacing: -0.035em; text-wrap: balance; }
 .h2 { font-size: var(--fs-h2); font-weight: 700; line-height: 1.08; letter-spacing: -0.03em; text-wrap: balance; }
+.h2--sm { font-size: var(--fs-h2-sm); }
 .h3 { font-size: var(--fs-h3); font-weight: 600; line-height: 1.25; letter-spacing: -0.015em; }
+.h3--lg { font-size: var(--fs-h3-lg); letter-spacing: -0.025em; }
 .lead { font-size: var(--fs-lead); line-height: 1.4; color: var(--c-ink-2); letter-spacing: -0.01em; text-wrap: pretty; }
+/* For a lead on a light surface; on .on-dark the colour rule of .on-dark .lead wins. */
+.lead--strong { color: var(--c-ink); font-weight: 600; }
 .on-dark .lead { color: var(--c-on-dark-2); }
 .section-head { max-width: 48rem; margin-inline: auto; text-align: center; display: grid; gap: var(--s-4); margin-bottom: var(--s-8); }
 
@@ -57,14 +61,21 @@ code, kbd { font-family: var(--font-mono); font-size: 0.9em; }
   font-weight: 500; font-size: 1.0625rem; text-decoration: none; border: 1px solid transparent;
   transition: background var(--t-fast), color var(--t-fast), border-color var(--t-fast), transform var(--t-fast);
 }
-.btn--primary { background: var(--c-ink); color: #fff; }
-.btn--primary:hover { background: #000; }
+.btn--primary { background: var(--c-ink); color: var(--c-bg); }
+.btn--primary:hover { background: var(--c-black); }
 .btn--secondary { background: transparent; color: var(--c-ink); border-color: var(--c-line); }
 .btn--secondary:hover { border-color: var(--c-ink-3); }
 .btn--soft { background: var(--c-line-soft); color: var(--c-ink-2); cursor: default; }
 .btn--sm { min-height: 2rem; padding: 0 0.9rem; font-size: 0.8125rem; }
+.btn--md { min-height: 2.5rem; padding: 0 var(--s-4); font-size: var(--fs-small); }
+.btn--lg { min-height: 3.25rem; padding: 0 var(--s-6); font-size: 1.125rem; }
+.btn--round { width: 2.5rem; padding: 0; font-variant-numeric: tabular-nums; }
 .btn[aria-disabled='true'] { cursor: not-allowed; }
-.on-dark .btn--primary { background: #fff; color: #000; }
-.on-dark .btn--primary:hover { background: #e8e8ed; }
-.on-dark .btn--soft { background: #2c2c2e; color: var(--c-on-dark-2); }
+.on-dark .btn--primary { background: var(--c-bg); color: var(--c-black); }
+.on-dark .btn--primary:hover { background: var(--c-line-soft); }
+.on-dark .btn--soft { background: var(--c-line-dark); color: var(--c-on-dark-2); }
 .on-dark .btn--secondary { color: var(--c-on-dark); border-color: var(--c-line-dark-hover); }
+/* Quiet pill for tabs and steps. Defined for dark surfaces only (.on-dark); .on marks the chosen one. */
+.on-dark .btn--quiet { background: transparent; color: var(--c-on-dark-2); border-color: var(--c-line-dark); }
+.on-dark .btn--quiet:hover { color: var(--c-on-dark); border-color: var(--c-line-dark-hover); }
+.on-dark .btn--quiet.on { background: var(--c-on-dark); color: var(--c-black); border-color: var(--c-on-dark); }

@@ -24,13 +24,13 @@ withDefaults(defineProps<{ img: Img; eager?: boolean; titlebar?: boolean; dark?:
 
 <style scoped>
 .window {
-  position: relative; overflow: hidden; background: #fff;
+  position: relative; overflow: hidden; background: var(--c-bg);
   border-radius: var(--r-window); box-shadow: var(--shadow-window);
   container-type: inline-size;
 }
 .window--dark { box-shadow: var(--shadow-window-dark); }
 .window img { width: 100%; height: auto; }
-.window__bar { height: clamp(18px, 2.6cqw, 30px); background: #f4f4f6; display: flex; align-items: center; padding-left: 2cqw; }
+.window__bar { height: clamp(18px, 2.6cqw, 30px); background: var(--c-app-chrome); display: flex; align-items: center; padding-left: 2cqw; }
 .dots { display: inline-flex; gap: clamp(3px, 0.6cqw, 8px); }
 .dots i { display: block; width: clamp(5px, 1cqw, 12px); aspect-ratio: 1; border-radius: 50%; background: var(--c-dot-red); }
 .dots i:nth-child(2) { background: var(--c-dot-yellow); }
