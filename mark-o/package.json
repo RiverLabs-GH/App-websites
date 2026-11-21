@@ -8,6 +8,7 @@
     "build": "vue-tsc --noEmit && vite build && vite build --ssr src/entry-server.ts --outDir dist-ssr && node tools/prerender.mjs",
     "preview": "vite preview",
     "check": "node tools/check-dist.mjs",
+    "smoke": "node tools/smoke-live.mjs",
     "assets": "node tools/prepare-assets.mjs"
   },
   "dependencies": { "vue": "^3.5.0" },

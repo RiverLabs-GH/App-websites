@@ -3,7 +3,11 @@ name: Deploy mark-o site
 # Publishes the mark-o module to GitHub Pages at
 #   https://<owner>.github.io/App-websites/mark-o/
 # whenever it changes on main (or when run by hand). The same build and checks as CI run first,
-# so a broken build is never published.
+# so a broken build is never published, and a smoke test fetches the live site afterwards.
+#
+# A repository has one Pages site and it serves exactly one artifact at its root. The build is
+# therefore staged into a folder named mark-o/ before upload, so the site lands under /mark-o/
+# and a later app module can be added next to it.
 #
 # One-time setup:
 #   1. The repository must be public (GitHub Pages on a private repository needs a paid plan).
@@ -50,9 +54,13 @@ jobs:
           VITE_SITE_URL: ${{ steps.pages.outputs.base_url }}/mark-o/
       - name: Check the build output
         run: npm run check
+      - name: Stage the build under /mark-o/
+        run: |
+          mkdir -p _site/mark-o
+          cp -R dist/. _site/mark-o/
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: mark-o/dist
+          path: mark-o/_site
 
   deploy:
     needs: build
@@ -60,7 +68,24 @@ jobs:
     timeout-minutes: 10
     environment:
       name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+      url: ${{ steps.deployment.outputs.page_url }}mark-o/
+    outputs:
+      page_url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - id: deployment
         uses: actions/deploy-pages@v4
+
+  # Fetches the live site: the page, its assets, the canonical and Open Graph targets, the sitemap,
+  # robots.txt and a video range request. Fails the run if any of them is not where the page says.
+  smoke:
+    needs: deploy
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: mark-o/tools
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: node mark-o/tools/smoke-live.mjs "${{ needs.deploy.outputs.page_url }}mark-o/"
