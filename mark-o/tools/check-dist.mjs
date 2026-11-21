@@ -140,6 +140,28 @@ for (const css of files.filter((f) => f.endsWith('.css'))) {
   }
 }
 
+// 7e. The branded 404 page exists, is kept out of search, and loads only absolute URLs (it is served at any depth).
+{
+  const f404 = path.join(dist, '404.html')
+  if (!existsSync(f404)) fail('missing 404.html')
+  else {
+    const t = await readFile(f404, 'utf8')
+    if (!/<meta name="robots" content="noindex">/.test(t)) fail('404.html is not marked noindex')
+    if (!/<title>Page not found \| mark\.O<\/title>/.test(t)) fail('404.html has no "Page not found | mark.O" title')
+    for (const m of t.matchAll(/(?:src|href)="([^"]+)"/g)) {
+      if (!/^https?:\/\//.test(m[1])) fail(`404.html has a relative URL ${m[1]}; it is served at any depth, so it must be an absolute URL`)
+      else if (canonical && m[1].startsWith(canonical) && m[1] !== canonical && !existsSync(path.join(dist, m[1].slice(canonical.length)))) fail(`404.html refers to ${m[1]}, which has no file in dist`)
+    }
+    for (const m of t.matchAll(/url\(([^)]+)\)/g)) {
+      const u = m[1].replace(/["']/g, '')
+      if (!/^https?:\/\//.test(u)) fail(`404.html has a relative url(${u})`)
+      else if (canonical && u.startsWith(canonical) && !existsSync(path.join(dist, u.slice(canonical.length)))) fail(`404.html refers to ${u}, which has no file in dist`)
+    }
+    const sm = existsSync(path.join(dist, 'sitemap.xml')) ? await readFile(path.join(dist, 'sitemap.xml'), 'utf8') : ''
+    if (sm.includes('404.html')) fail('sitemap.xml lists 404.html')
+  }
+}
+
 // 8. Fully static and private: no third-party hosts anywhere in the built page or bundles.
 const allowed = [
   /^https?:\/\/www\.w3\.org\//, /^https:\/\/schema\.org/, /^https:\/\/vuejs\.org\//,

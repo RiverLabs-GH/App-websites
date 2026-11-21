@@ -88,6 +88,25 @@ else {
   }
 }
 
+// 6. An unknown address gets the branded 404 page (served from the Pages site root) with a 404 status.
+{
+  const url = `${base}__smoke-404-${Date.now()}`
+  let ok = false
+  let last = 'no response'
+  for (let i = 1; i <= TRIES && !ok; i++) {
+    try {
+      const r = await fetch(url)
+      const body = await r.text()
+      ok = r.status === 404 && /<title>Page not found \| mark\.O<\/title>/.test(body) && /name="robots" content="noindex"/.test(body)
+      last = ok ? 'ok' : `${r.status}, ${(body.match(/<title>([^<]*)<\/title>/) || [])[1] || 'no title'}`
+    } catch (e) {
+      last = `network error: ${e.message}`
+    }
+    if (!ok && i < TRIES) await sleep(WAIT_MS)
+  }
+  if (!ok) fail(`${url} did not return the branded 404 page (got ${last})`)
+}
+
 done()
 
 function done() {

@@ -83,7 +83,7 @@ export interface Experience {
 export const markdownReader: Experience = {
   id: 'markdown-reader',
   eyebrow: 'Markdown Reader',
-  title: 'Any file or folder, read the way it was meant to be seen.',
+  title: 'Read any Markdown file or folder the way it was meant to be seen.',
   lead: 'Open a file and it reads like a finished document. Open a folder and work through it with tabs, an outline and find.',
   points: [
     { title: 'Everything renders', text: 'GitHub-flavoured Markdown, math, Mermaid diagrams and highlighted code, all bundled so it works offline.' },
@@ -97,7 +97,7 @@ export const markdownReader: Experience = {
 export const okfReader: Experience = {
   id: 'okf-reader',
   eyebrow: 'OKF Reader',
-  title: 'Knowledge bundles, with a human in the loop.',
+  title: 'An OKF reader for knowledge bundles, with a human in the loop.',
   lead: 'Open a folder of agent-written Markdown as an Open Knowledge Format bundle. See it, review it, verify it, and keep it true.',
   points: [
     { title: 'Understand a bundle in a minute', text: 'Every concept shows its type, tags, status, trust level and freshness. Footnotes resolve to their sources, and “Cited by” shows what points here.' },
@@ -116,7 +116,7 @@ export const okfReader: Experience = {
 export const tour = {
   id: 'tour',
   eyebrow: 'Product tour',
-  title: 'See it work.',
+  title: 'See how mark.O reads and reviews agent output.',
   lead: 'A 73-second film, then the real screens, step by step.',
   video: {
     src: asset('videos/mark-o-launch-web.mp4'),
