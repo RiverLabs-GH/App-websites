@@ -1,0 +1,23 @@
+/* Reveal on scroll. Only active when JS has run (html.js), so content is never hidden without it. */
+.js .reveal { opacity: 0; transform: translateY(18px); transition: opacity var(--t-med) var(--ease), transform var(--t-med) var(--ease); transition-delay: var(--reveal-delay, 0ms); }
+.js .reveal.is-visible { opacity: 1; transform: none; }
+
+/* Scroll-linked rise for product windows, where the browser supports it. */
+@supports (animation-timeline: view()) {
+  .window-rise {
+    animation: window-rise linear both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 35%;
+  }
+  @keyframes window-rise {
+    from { transform: translateY(48px) scale(0.965); opacity: 0.55; }
+    to { transform: none; opacity: 1; }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .js .reveal { opacity: 1; transform: none; transition: none; }
+  .window-rise { animation: none !important; }
+  *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
+}
