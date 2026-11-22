@@ -1,0 +1,752 @@
+{
+  "capturedAt": "2026-11-22T12:19:42.352Z",
+  "repo": "/Users/vipinkp/PycharmProjects/EverOn",
+  "items": [
+    {
+      "id": "popover-inactive",
+      "target": "popover",
+      "state": "inactive",
+      "theme": "light",
+      "file": "popover-inactive-light@2x.png",
+      "cssSize": {
+        "w": 320,
+        "h": 388
+      },
+      "scale": 2,
+      "note": "Sample power reading: 82%, charging (injected)."
+    },
+    {
+      "id": "popover-inactive",
+      "target": "popover",
+      "state": "inactive",
+      "theme": "dark",
+      "file": "popover-inactive-dark@2x.png",
+      "cssSize": {
+        "w": 320,
+        "h": 388
+      },
+      "scale": 2,
+      "note": "Sample power reading: 82%, charging (injected)."
+    },
+    {
+      "id": "overview-inactive",
+      "target": "window",
+      "state": "inactive",
+      "theme": "light",
+      "file": "overview-inactive-light@2x.png",
+      "cssSize": {
+        "w": 1100,
+        "h": 720
+      },
+      "scale": 2,
+      "note": "Sample power reading (injected)."
+    },
+    {
+      "id": "overview-inactive",
+      "target": "window",
+      "state": "inactive",
+      "theme": "dark",
+      "file": "overview-inactive-dark@2x.png",
+      "cssSize": {
+        "w": 1100,
+        "h": 720
+      },
+      "scale": 2,
+      "note": "Sample power reading (injected)."
+    },
+    {
+      "id": "overview-inactive",
+      "target": "window",
+      "state": "inactive",
+      "theme": "midnight",
+      "file": "overview-inactive-midnight@2x.png",
+      "cssSize": {
+        "w": 1100,
+        "h": 720
+      },
+      "scale": 2,
+      "note": "Sample power reading (injected)."
+    },
+    {
+      "id": "overview-inactive",
+      "target": "window",
+      "state": "inactive",
+      "theme": "arctic",
+      "file": "overview-inactive-arctic@2x.png",
+      "cssSize": {
+        "w": 1100,
+        "h": 720
+      },
+      "scale": 2,
+      "note": "Sample power reading (injected)."
+    },
+    {
+      "id": "overview-inactive",
+      "target": "window",
+      "state": "inactive",
+      "theme": "oled",
+      "file": "overview-inactive-oled@2x.png",
+      "cssSize": {
+        "w": 1100,
+        "h": 720
+      },
+      "scale": 2,
+      "note": "Sample power reading (injected)."
+    },
+    {
+      "id": "overview-inactive",
+      "target": "window",
+      "state": "inactive",
+      "theme": "aurora",
+      "file": "overview-inactive-aurora@2x.png",
+      "cssSize": {
+        "w": 1100,
+        "h": 720
+      },
+      "scale": 2,
+      "note": "Sample power reading (injected)."
+    },
+    {
+      "id": "popover-active",
+      "target": "popover",
+      "state": "active, manual session, 1 hour",
+      "theme": "light",
+      "file": "popover-active-light@2x.png",
+      "cssSize": {
+        "w": 320,
+        "h": 420
+      },
+      "scale": 2,
+      "note": "Countdown is live at capture time. Sample power reading (injected)."
+    },
+    {
+      "id": "popover-active",
+      "target": "popover",
+      "state": "active, manual session, 1 hour",
+      "theme": "dark",
+      "file": "popover-active-dark@2x.png",
+      "cssSize": {
+        "w": 320,
+        "h": 420
+      },
+      "scale": 2,
+      "note": "Countdown is live at capture time. Sample power reading (injected)."
+    },
+    {
+      "id": "popover-active",
+      "target": "popover",
+      "state": "active, manual session, 1 hour",
+      "theme": "midnight",
+      "file": "popover-active-midnight@2x.png",
+      "cssSize": {
+        "w": 320,
+        "h": 420
+      },
+      "scale": 2,
+      "note": "Countdown is live at capture time. Sample power reading (injected)."
+    },
+    {
+      "id": "popover-active",
+      "target": "popover",
+      "state": "active, manual session, 1 hour",
+      "theme": "arctic",
+      "file": "popover-active-arctic@2x.png",
+      "cssSize": {
+        "w": 320,
+        "h": 420
+      },
+      "scale": 2,
+      "note": "Countdown is live at capture time. Sample power reading (injected)."
+    },
+    {
+      "id": "popover-active",
+      "target": "popover",
+      "state": "active, manual session, 1 hour",
+      "theme": "oled",
+      "file": "popover-active-oled@2x.png",
+      "cssSize": {
+        "w": 320,
+        "h": 420
+      },
+      "scale": 2,
+      "note": "Countdown is live at capture time. Sample power reading (injected)."
+    },
+    {
+      "id": "popover-active",
+      "target": "popover",
+      "state": "active, manual session, 1 hour",
+      "theme": "aurora",
+      "file": "popover-active-aurora@2x.png",
+      "cssSize": {
+        "w": 320,
+        "h": 420
+      },
+      "scale": 2,
+      "note": "Countdown is live at capture time. Sample power reading (injected)."
+    },
+    {
+      "id": "overview-active",
+      "target": "window",
+      "state": "active, manual session",
+      "theme": "light",
+      "file": "overview-active-light@2x.png",
+      "cssSize": {
+        "w": 1100,
+        "h": 720
+      },
+      "scale": 2,
+      "note": "Countdown is live at capture time."
+    },
+    {
+      "id": "overview-active",
+      "target": "window",
+      "state": "active, manual session",
+      "theme": "dark",
+      "file": "overview-active-dark@2x.png",
+      "cssSize": {
+        "w": 1100,
+        "h": 720
+      },
+      "scale": 2,
+      "note": "Countdown is live at capture time."
+    },
+    {
+      "id": "overview-active",
+      "target": "window",
+      "state": "active, manual session",
+      "theme": "midnight",
+      "file": "overview-active-midnight@2x.png",
+      "cssSize": {
+        "w": 1100,
+        "h": 720
+      },
+      "scale": 2,
+      "note": "Countdown is live at capture time."
+    },
+    {
+      "id": "overview-active",
+      "target": "window",
+      "state": "active, manual session",
+      "theme": "arctic",
+      "file": "overview-active-arctic@2x.png",
+      "cssSize": {
+        "w": 1100,
+        "h": 720
+      },
+      "scale": 2,
+      "note": "Countdown is live at capture time."
+    },
+    {
+      "id": "overview-active",
+      "target": "window",
+      "state": "active, manual session",
+      "theme": "oled",
+      "file": "overview-active-oled@2x.png",
+      "cssSize": {
+        "w": 1100,
+        "h": 720
+      },
+      "scale": 2,
+      "note": "Countdown is live at capture time."
+    },
+    {
+      "id": "overview-active",
+      "target": "window",
+      "state": "active, manual session",
+      "theme": "aurora",
+      "file": "overview-active-aurora@2x.png",
+      "cssSize": {
+        "w": 1100,
+        "h": 720
+      },
+      "scale": 2,
+      "note": "Countdown is live at capture time."
+    },
+    {
+      "id": "session-detail",
+      "target": "window",
+      "state": "active, reasons listed",
+      "theme": "light",
+      "file": "session-detail-light@2x.png",
+      "cssSize": {
+        "w": 1100,
+        "h": 720
+      },
+      "scale": 2,
+      "note": "Live session; countdown is live at capture time."
+    },
+    {
+      "id": "session-detail",
+      "target": "window",
+      "state": "active, reasons listed",
+      "theme": "dark",
+      "file": "session-detail-dark@2x.png",
+      "cssSize": {
+        "w": 1100,
+        "h": 720
+      },
+      "scale": 2,
+      "note": "Live session; countdown is live at capture time."
+    },
+    {
+      "id": "popover-paused",
+      "target": "popover",
+      "state": "paused",
+      "theme": "light",
+      "file": "popover-paused-light@2x.png",
+      "cssSize": {
+        "w": 320,
+        "h": 420
+      },
+      "scale": 2,
+      "note": ""
+    },
+    {
+      "id": "popover-paused",
+      "target": "popover",
+      "state": "paused",
+      "theme": "dark",
+      "file": "popover-paused-dark@2x.png",
+      "cssSize": {
+        "w": 320,
+        "h": 420
+      },
+      "scale": 2,
+      "note": ""
+    },
+    {
+      "id": "popover-rule-active",
+      "target": "popover",
+      "state": "held by a rule",
+      "theme": "light",
+      "file": "popover-rule-active-light@2x.png",
+      "cssSize": {
+        "w": 320,
+        "h": 500
+      },
+      "scale": 2,
+      "note": "Sample rule names; condition injected as met."
+    },
+    {
+      "id": "popover-rule-active",
+      "target": "popover",
+      "state": "held by a rule",
+      "theme": "dark",
+      "file": "popover-rule-active-dark@2x.png",
+      "cssSize": {
+        "w": 320,
+        "h": 500
+      },
+      "scale": 2,
+      "note": "Sample rule names; condition injected as met."
+    },
+    {
+      "id": "popover-rule-active",
+      "target": "popover",
+      "state": "held by a rule",
+      "theme": "midnight",
+      "file": "popover-rule-active-midnight@2x.png",
+      "cssSize": {
+        "w": 320,
+        "h": 500
+      },
+      "scale": 2,
+      "note": "Sample rule names; condition injected as met."
+    },
+    {
+      "id": "automations-list",
+      "target": "window",
+      "state": "one rule active, one waiting",
+      "theme": "light",
+      "file": "automations-list-light@2x.png",
+      "cssSize": {
+        "w": 1100,
+        "h": 720
+      },
+      "scale": 2,
+      "note": "Sample rules and injected conditions."
+    },
+    {
+      "id": "automations-list",
+      "target": "window",
+      "state": "one rule active, one waiting",
+      "theme": "dark",
+      "file": "automations-list-dark@2x.png",
+      "cssSize": {
+        "w": 1100,
+        "h": 720
+      },
+      "scale": 2,
+      "note": "Sample rules and injected conditions."
+    },
+    {
+      "id": "rule-evaluator",
+      "target": "window",
+      "state": "live evaluator",
+      "theme": "light",
+      "file": "rule-evaluator-light@2x.png",
+      "cssSize": {
+        "w": 1100,
+        "h": 720
+      },
+      "scale": 2,
+      "note": "Sample rule; injected condition."
+    },
+    {
+      "id": "rule-evaluator",
+      "target": "window",
+      "state": "live evaluator",
+      "theme": "dark",
+      "file": "rule-evaluator-dark@2x.png",
+      "cssSize": {
+        "w": 1100,
+        "h": 720
+      },
+      "scale": 2,
+      "note": "Sample rule; injected condition."
+    },
+    {
+      "id": "rule-builder",
+      "target": "window",
+      "state": "builder, conditions (name typed, nothing saved)",
+      "theme": "light",
+      "file": "rule-builder-light@2x.png",
+      "cssSize": {
+        "w": 1100,
+        "h": 720
+      },
+      "scale": 2,
+      "note": "Nothing saved.",
+      "claimsNote": "Shows the agent shortcut button without an \"unverified\" label: do not use on the site as is."
+    },
+    {
+      "id": "rule-builder",
+      "target": "window",
+      "state": "builder, conditions (name typed, nothing saved)",
+      "theme": "dark",
+      "file": "rule-builder-dark@2x.png",
+      "cssSize": {
+        "w": 1100,
+        "h": 720
+      },
+      "scale": 2,
+      "note": "Nothing saved.",
+      "claimsNote": "Shows the agent shortcut button without an \"unverified\" label: do not use on the site as is."
+    },
+    {
+      "id": "history",
+      "target": "window",
+      "state": "one session, stopped by the person",
+      "theme": "light",
+      "file": "history-light@2x.png",
+      "cssSize": {
+        "w": 1100,
+        "h": 720
+      },
+      "scale": 2,
+      "note": "History holds only this capture run.",
+      "claimsNote": "Shows an \"Included in EverOn Pro\" Insights card (Pro feature description) and \"Showing the last 366 days\", which conflicts with the 30-day Free decision (OQ-014). Do not use on the site until the app copy is corrected, or use the generated screen."
+    },
+    {
+      "id": "history",
+      "target": "window",
+      "state": "one session, stopped by the person",
+      "theme": "dark",
+      "file": "history-dark@2x.png",
+      "cssSize": {
+        "w": 1100,
+        "h": 720
+      },
+      "scale": 2,
+      "note": "History holds only this capture run.",
+      "claimsNote": "Shows an \"Included in EverOn Pro\" Insights card (Pro feature description) and \"Showing the last 366 days\", which conflicts with the 30-day Free decision (OQ-014). Do not use on the site until the app copy is corrected, or use the generated screen."
+    },
+    {
+      "id": "sessions-presets",
+      "target": "window",
+      "state": "built-in presets",
+      "theme": "light",
+      "file": "sessions-presets-light@2x.png",
+      "cssSize": {
+        "w": 1100,
+        "h": 720
+      },
+      "scale": 2,
+      "note": ""
+    },
+    {
+      "id": "sessions-presets",
+      "target": "window",
+      "state": "built-in presets",
+      "theme": "dark",
+      "file": "sessions-presets-dark@2x.png",
+      "cssSize": {
+        "w": 1100,
+        "h": 720
+      },
+      "scale": 2,
+      "note": ""
+    },
+    {
+      "id": "diagnostics",
+      "target": "window",
+      "state": "helper running",
+      "theme": "light",
+      "file": "diagnostics-light@2x.png",
+      "cssSize": {
+        "w": 1100,
+        "h": 720
+      },
+      "scale": 2,
+      "note": "Real helper in the capture run."
+    },
+    {
+      "id": "diagnostics",
+      "target": "window",
+      "state": "helper running",
+      "theme": "dark",
+      "file": "diagnostics-dark@2x.png",
+      "cssSize": {
+        "w": 1100,
+        "h": 720
+      },
+      "scale": 2,
+      "note": "Real helper in the capture run."
+    },
+    {
+      "id": "settings-general",
+      "target": "window",
+      "state": "settings, general",
+      "theme": "light",
+      "file": "settings-general-light@2x.png",
+      "cssSize": {
+        "w": 1100,
+        "h": 720
+      },
+      "scale": 2,
+      "note": ""
+    },
+    {
+      "id": "settings-general",
+      "target": "window",
+      "state": "settings, general",
+      "theme": "dark",
+      "file": "settings-general-dark@2x.png",
+      "cssSize": {
+        "w": 1100,
+        "h": 720
+      },
+      "scale": 2,
+      "note": ""
+    },
+    {
+      "id": "settings-appearance",
+      "target": "window",
+      "state": "settings, appearance",
+      "theme": "light",
+      "file": "settings-appearance-light@2x.png",
+      "cssSize": {
+        "w": 1100,
+        "h": 720
+      },
+      "scale": 2,
+      "note": ""
+    },
+    {
+      "id": "settings-appearance",
+      "target": "window",
+      "state": "settings, appearance",
+      "theme": "dark",
+      "file": "settings-appearance-dark@2x.png",
+      "cssSize": {
+        "w": 1100,
+        "h": 720
+      },
+      "scale": 2,
+      "note": ""
+    },
+    {
+      "id": "settings-appearance",
+      "target": "window",
+      "state": "settings, appearance",
+      "theme": "midnight",
+      "file": "settings-appearance-midnight@2x.png",
+      "cssSize": {
+        "w": 1100,
+        "h": 720
+      },
+      "scale": 2,
+      "note": ""
+    },
+    {
+      "id": "settings-safety",
+      "target": "window",
+      "state": "settings, safety",
+      "theme": "light",
+      "file": "settings-safety-light@2x.png",
+      "cssSize": {
+        "w": 1100,
+        "h": 720
+      },
+      "scale": 2,
+      "note": ""
+    },
+    {
+      "id": "settings-safety",
+      "target": "window",
+      "state": "settings, safety",
+      "theme": "dark",
+      "file": "settings-safety-dark@2x.png",
+      "cssSize": {
+        "w": 1100,
+        "h": 720
+      },
+      "scale": 2,
+      "note": ""
+    },
+    {
+      "id": "settings-safety",
+      "target": "window",
+      "state": "settings, safety",
+      "theme": "midnight",
+      "file": "settings-safety-midnight@2x.png",
+      "cssSize": {
+        "w": 1100,
+        "h": 720
+      },
+      "scale": 2,
+      "note": ""
+    },
+    {
+      "id": "settings-automation",
+      "target": "window",
+      "state": "settings, automation",
+      "theme": "light",
+      "file": "settings-automation-light@2x.png",
+      "cssSize": {
+        "w": 1100,
+        "h": 720
+      },
+      "scale": 2,
+      "note": ""
+    },
+    {
+      "id": "settings-automation",
+      "target": "window",
+      "state": "settings, automation",
+      "theme": "dark",
+      "file": "settings-automation-dark@2x.png",
+      "cssSize": {
+        "w": 1100,
+        "h": 720
+      },
+      "scale": 2,
+      "note": ""
+    },
+    {
+      "id": "settings-notifications",
+      "target": "window",
+      "state": "settings, notifications",
+      "theme": "light",
+      "file": "settings-notifications-light@2x.png",
+      "cssSize": {
+        "w": 1100,
+        "h": 720
+      },
+      "scale": 2,
+      "note": ""
+    },
+    {
+      "id": "settings-notifications",
+      "target": "window",
+      "state": "settings, notifications",
+      "theme": "dark",
+      "file": "settings-notifications-dark@2x.png",
+      "cssSize": {
+        "w": 1100,
+        "h": 720
+      },
+      "scale": 2,
+      "note": ""
+    },
+    {
+      "id": "popover-battery-warning",
+      "target": "popover",
+      "state": "battery warning",
+      "theme": "light",
+      "file": "popover-battery-warning-light@2x.png",
+      "cssSize": {
+        "w": 320,
+        "h": 500
+      },
+      "scale": 2,
+      "note": "Injected power reading: 18% on battery."
+    },
+    {
+      "id": "popover-battery-warning",
+      "target": "popover",
+      "state": "battery warning",
+      "theme": "dark",
+      "file": "popover-battery-warning-dark@2x.png",
+      "cssSize": {
+        "w": 320,
+        "h": 500
+      },
+      "scale": 2,
+      "note": "Injected power reading: 18% on battery."
+    },
+    {
+      "id": "quick-switcher",
+      "target": "window",
+      "state": "results shown",
+      "theme": "light",
+      "file": "quick-switcher-light@2x.png",
+      "cssSize": {
+        "w": 1100,
+        "h": 720
+      },
+      "scale": 2,
+      "note": ""
+    },
+    {
+      "id": "quick-switcher",
+      "target": "window",
+      "state": "results shown",
+      "theme": "dark",
+      "file": "quick-switcher-dark@2x.png",
+      "cssSize": {
+        "w": 1100,
+        "h": 720
+      },
+      "scale": 2,
+      "note": ""
+    },
+    {
+      "id": "composer",
+      "target": "window",
+      "state": "new session composer",
+      "theme": "light",
+      "file": "composer-light@2x.png",
+      "cssSize": {
+        "w": 1100,
+        "h": 720
+      },
+      "scale": 2,
+      "note": "Nothing started."
+    },
+    {
+      "id": "composer",
+      "target": "window",
+      "state": "new session composer",
+      "theme": "dark",
+      "file": "composer-dark@2x.png",
+      "cssSize": {
+        "w": 1100,
+        "h": 720
+      },
+      "scale": 2,
+      "note": "Nothing started."
+    }
+  ],
+  "failures": []
+}
