@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /App-websites/everon/screens/
+
+Sitemap: https://riverlabs-gh.github.io/App-websites/everon/sitemap.xml
