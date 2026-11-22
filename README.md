@@ -7,6 +7,7 @@ The websites for RiverLabs.io apps, one module per app.
 | Module | App | Status |
 |---|---|---|
 | [`mark-o/`](mark-o/) | [mark.O](https://github.com/RiverLabs-GH/mark.O), a private, offline Markdown workspace for macOS | Scaffold only, no site yet |
+| [`everon/`](everon/) | EverOn, a menu-bar app for macOS that keeps the Mac awake for long AI coding runs | Site built, not yet deployed |
 
 ## Layout
 

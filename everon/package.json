@@ -1,0 +1,27 @@
+{
+  "name": "everon-website",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc --noEmit && vite build && vite build --ssr src/entry-server.ts --outDir dist-ssr && node tools/prerender.mjs",
+    "preview": "vite preview",
+    "check": "node tools/check-dist.mjs && node tools/copy-audit.mjs",
+    "audit": "node tools/copy-audit.mjs",
+    "smoke": "node tools/smoke-live.mjs",
+    "assets": "node tools/prepare-assets.mjs",
+    "capture": "node tools/capture-screens.mjs"
+  },
+  "dependencies": {
+    "vue": "^3.5.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.20.5",
+    "@vitejs/plugin-vue": "^5.2.0",
+    "sharp": "^0.33.5",
+    "typescript": "~5.6.0",
+    "vite": "^6.0.0",
+    "vue-tsc": "^2.1.0"
+  }
+}

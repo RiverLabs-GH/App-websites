@@ -1,0 +1,331 @@
+{
+  "popover-inactive-light": {
+    "w": 640,
+    "h": 776,
+    "state": "inactive",
+    "note": "Sample power reading: 82%, charging (injected).",
+    "target": "popover"
+  },
+  "popover-inactive-dark": {
+    "w": 640,
+    "h": 776,
+    "state": "inactive",
+    "note": "Sample power reading: 82%, charging (injected).",
+    "target": "popover"
+  },
+  "overview-inactive-light": {
+    "w": 1760,
+    "h": 1152,
+    "state": "inactive",
+    "note": "Sample power reading (injected).",
+    "target": "window"
+  },
+  "overview-inactive-dark": {
+    "w": 1760,
+    "h": 1152,
+    "state": "inactive",
+    "note": "Sample power reading (injected).",
+    "target": "window"
+  },
+  "overview-inactive-midnight": {
+    "w": 1760,
+    "h": 1152,
+    "state": "inactive",
+    "note": "Sample power reading (injected).",
+    "target": "window"
+  },
+  "overview-inactive-arctic": {
+    "w": 1760,
+    "h": 1152,
+    "state": "inactive",
+    "note": "Sample power reading (injected).",
+    "target": "window"
+  },
+  "overview-inactive-oled": {
+    "w": 1760,
+    "h": 1152,
+    "state": "inactive",
+    "note": "Sample power reading (injected).",
+    "target": "window"
+  },
+  "overview-inactive-aurora": {
+    "w": 1760,
+    "h": 1152,
+    "state": "inactive",
+    "note": "Sample power reading (injected).",
+    "target": "window"
+  },
+  "popover-active-light": {
+    "w": 640,
+    "h": 840,
+    "state": "active, manual session, 1 hour",
+    "note": "Countdown is live at capture time. Sample power reading (injected).",
+    "target": "popover"
+  },
+  "popover-active-dark": {
+    "w": 640,
+    "h": 840,
+    "state": "active, manual session, 1 hour",
+    "note": "Countdown is live at capture time. Sample power reading (injected).",
+    "target": "popover"
+  },
+  "popover-active-midnight": {
+    "w": 640,
+    "h": 840,
+    "state": "active, manual session, 1 hour",
+    "note": "Countdown is live at capture time. Sample power reading (injected).",
+    "target": "popover"
+  },
+  "popover-active-arctic": {
+    "w": 640,
+    "h": 840,
+    "state": "active, manual session, 1 hour",
+    "note": "Countdown is live at capture time. Sample power reading (injected).",
+    "target": "popover"
+  },
+  "popover-active-oled": {
+    "w": 640,
+    "h": 840,
+    "state": "active, manual session, 1 hour",
+    "note": "Countdown is live at capture time. Sample power reading (injected).",
+    "target": "popover"
+  },
+  "popover-active-aurora": {
+    "w": 640,
+    "h": 840,
+    "state": "active, manual session, 1 hour",
+    "note": "Countdown is live at capture time. Sample power reading (injected).",
+    "target": "popover"
+  },
+  "overview-active-light": {
+    "w": 1760,
+    "h": 1152,
+    "state": "active, manual session",
+    "note": "Countdown is live at capture time.",
+    "target": "window"
+  },
+  "overview-active-dark": {
+    "w": 1760,
+    "h": 1152,
+    "state": "active, manual session",
+    "note": "Countdown is live at capture time.",
+    "target": "window"
+  },
+  "overview-active-midnight": {
+    "w": 1760,
+    "h": 1152,
+    "state": "active, manual session",
+    "note": "Countdown is live at capture time.",
+    "target": "window"
+  },
+  "overview-active-arctic": {
+    "w": 1760,
+    "h": 1152,
+    "state": "active, manual session",
+    "note": "Countdown is live at capture time.",
+    "target": "window"
+  },
+  "overview-active-oled": {
+    "w": 1760,
+    "h": 1152,
+    "state": "active, manual session",
+    "note": "Countdown is live at capture time.",
+    "target": "window"
+  },
+  "overview-active-aurora": {
+    "w": 1760,
+    "h": 1152,
+    "state": "active, manual session",
+    "note": "Countdown is live at capture time.",
+    "target": "window"
+  },
+  "session-detail-light": {
+    "w": 1760,
+    "h": 1152,
+    "state": "active, reasons listed",
+    "note": "Live session; countdown is live at capture time.",
+    "target": "window"
+  },
+  "session-detail-dark": {
+    "w": 1760,
+    "h": 1152,
+    "state": "active, reasons listed",
+    "note": "Live session; countdown is live at capture time.",
+    "target": "window"
+  },
+  "popover-paused-light": {
+    "w": 640,
+    "h": 840,
+    "state": "paused",
+    "note": "",
+    "target": "popover"
+  },
+  "popover-paused-dark": {
+    "w": 640,
+    "h": 840,
+    "state": "paused",
+    "note": "",
+    "target": "popover"
+  },
+  "popover-rule-active-light": {
+    "w": 640,
+    "h": 1000,
+    "state": "held by a rule",
+    "note": "Sample rule names; condition injected as met.",
+    "target": "popover"
+  },
+  "popover-rule-active-dark": {
+    "w": 640,
+    "h": 1000,
+    "state": "held by a rule",
+    "note": "Sample rule names; condition injected as met.",
+    "target": "popover"
+  },
+  "popover-rule-active-midnight": {
+    "w": 640,
+    "h": 1000,
+    "state": "held by a rule",
+    "note": "Sample rule names; condition injected as met.",
+    "target": "popover"
+  },
+  "automations-list-light": {
+    "w": 1760,
+    "h": 1152,
+    "state": "one rule active, one waiting",
+    "note": "Sample rules and injected conditions.",
+    "target": "window"
+  },
+  "automations-list-dark": {
+    "w": 1760,
+    "h": 1152,
+    "state": "one rule active, one waiting",
+    "note": "Sample rules and injected conditions.",
+    "target": "window"
+  },
+  "rule-evaluator-light": {
+    "w": 1760,
+    "h": 1152,
+    "state": "live evaluator",
+    "note": "Sample rule; injected condition.",
+    "target": "window"
+  },
+  "rule-evaluator-dark": {
+    "w": 1760,
+    "h": 1152,
+    "state": "live evaluator",
+    "note": "Sample rule; injected condition.",
+    "target": "window"
+  },
+  "sessions-presets-light": {
+    "w": 1760,
+    "h": 1152,
+    "state": "built-in presets",
+    "note": "",
+    "target": "window"
+  },
+  "sessions-presets-dark": {
+    "w": 1760,
+    "h": 1152,
+    "state": "built-in presets",
+    "note": "",
+    "target": "window"
+  },
+  "diagnostics-light": {
+    "w": 1760,
+    "h": 1152,
+    "state": "helper running",
+    "note": "Real helper in the capture run.",
+    "target": "window"
+  },
+  "diagnostics-dark": {
+    "w": 1760,
+    "h": 1152,
+    "state": "helper running",
+    "note": "Real helper in the capture run.",
+    "target": "window"
+  },
+  "settings-appearance-light": {
+    "w": 1760,
+    "h": 1152,
+    "state": "settings, appearance",
+    "note": "",
+    "target": "window"
+  },
+  "settings-appearance-dark": {
+    "w": 1760,
+    "h": 1152,
+    "state": "settings, appearance",
+    "note": "",
+    "target": "window"
+  },
+  "settings-appearance-midnight": {
+    "w": 1760,
+    "h": 1152,
+    "state": "settings, appearance",
+    "note": "",
+    "target": "window"
+  },
+  "settings-safety-light": {
+    "w": 1760,
+    "h": 1152,
+    "state": "settings, safety",
+    "note": "",
+    "target": "window"
+  },
+  "settings-safety-dark": {
+    "w": 1760,
+    "h": 1152,
+    "state": "settings, safety",
+    "note": "",
+    "target": "window"
+  },
+  "settings-safety-midnight": {
+    "w": 1760,
+    "h": 1152,
+    "state": "settings, safety",
+    "note": "",
+    "target": "window"
+  },
+  "popover-battery-warning-light": {
+    "w": 640,
+    "h": 1000,
+    "state": "battery warning",
+    "note": "Injected power reading: 18% on battery.",
+    "target": "popover"
+  },
+  "popover-battery-warning-dark": {
+    "w": 640,
+    "h": 1000,
+    "state": "battery warning",
+    "note": "Injected power reading: 18% on battery.",
+    "target": "popover"
+  },
+  "quick-switcher-light": {
+    "w": 1760,
+    "h": 1152,
+    "state": "results shown",
+    "note": "",
+    "target": "window"
+  },
+  "quick-switcher-dark": {
+    "w": 1760,
+    "h": 1152,
+    "state": "results shown",
+    "note": "",
+    "target": "window"
+  },
+  "composer-light": {
+    "w": 1760,
+    "h": 1152,
+    "state": "new session composer",
+    "note": "Nothing started.",
+    "target": "window"
+  },
+  "composer-dark": {
+    "w": 1760,
+    "h": 1152,
+    "state": "new session composer",
+    "note": "Nothing started.",
+    "target": "window"
+  }
+}
