@@ -94,6 +94,7 @@ if (canonical && existsSync(path.join(dist, 'sitemap.xml'))) {
 }
 
 // 7b. Structured data parses, names the app, lists its features, and every URL in it resolves in dist.
+let publisher = null
 const ld = html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)?.[1]
 if (!ld) fail('no JSON-LD structured data')
 else {
@@ -102,6 +103,13 @@ else {
   if (data) {
     if (data['@type'] !== 'SoftwareApplication') fail('JSON-LD @type is not SoftwareApplication')
     if (!Array.isArray(data.featureList) || data.featureList.length === 0) fail('JSON-LD has no featureList')
+    publisher = data.publisher
+    if (!publisher || typeof publisher !== 'object' || publisher['@type'] !== 'Organization') fail('JSON-LD publisher is not an Organization')
+    else {
+      for (const k of ['name', 'url', 'logo', 'email']) if (!publisher[k]) fail(`JSON-LD publisher has no ${k}`)
+      if (publisher.url && !/^https:\/\//.test(publisher.url)) fail(`JSON-LD publisher url ${publisher.url} is not https`)
+      if (publisher.logo && canonical && (!publisher.logo.startsWith(canonical) || !existsSync(path.join(dist, publisher.logo.slice(canonical.length))))) fail(`JSON-LD publisher logo ${publisher.logo} has no file in dist`)
+    }
     for (const u of [data.url, data.image, ...[].concat(data.screenshot || [])].filter(Boolean)) {
       if (canonical && !u.startsWith(canonical)) fail(`JSON-LD URL ${u} is not under the canonical address`)
       else if (canonical && u !== canonical && !existsSync(path.join(dist, u.slice(canonical.length)))) fail(`JSON-LD URL ${u} has no file in dist`)
@@ -157,9 +165,22 @@ for (const css of files.filter((f) => f.endsWith('.css'))) {
       if (!/^https?:\/\//.test(u)) fail(`404.html has a relative url(${u})`)
       else if (canonical && u.startsWith(canonical) && !existsSync(path.join(dist, u.slice(canonical.length)))) fail(`404.html refers to ${u}, which has no file in dist`)
     }
+    if (publisher?.url && !t.includes(`href="${publisher.url}"`)) fail('404.html does not link to the parent company')
     const sm = existsSync(path.join(dist, 'sitemap.xml')) ? await readFile(path.join(dist, 'sitemap.xml'), 'utf8') : ''
     if (sm.includes('404.html')) fail('sitemap.xml lists 404.html')
   }
+}
+
+// 7f. The parent company appears in the footer (link, contact, copyright) and the author tag, and each agrees
+// with the structured data, which is generated from the same company entry.
+if (publisher?.name && publisher.url && publisher.email) {
+  const esc = (t) => t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+  if (/__PUBLISHER__|__COMPANY_NAME__/.test(html)) fail('a company placeholder is left in index.html')
+  const link = [...html.matchAll(new RegExp(`<a[^>]*href="${esc(publisher.url)}"[^>]*>([\\s\\S]*?)</a>`, 'g'))].find((m) => m[1].includes(publisher.name))
+  if (!link) fail(`the footer has no link to ${publisher.url} whose text names ${publisher.name}`)
+  if (!html.includes(`href="mailto:${publisher.email}"`)) fail(`the footer has no mailto link for ${publisher.email}`)
+  if (!new RegExp(`Copyright © \\d{4} ${esc(publisher.name)}\\.`).test(html)) fail(`the copyright line does not name ${publisher.name}`)
+  if (!new RegExp(`<meta name="author" content="${esc(publisher.name)}"`).test(html)) fail(`the author meta tag is not ${publisher.name}`)
 }
 
 // 8. Fully static and private: no third-party hosts anywhere in the built page or bundles.
@@ -172,8 +193,9 @@ for (const f of files.filter((f) => /\.(html|js|css|xml|txt)$/.test(f))) {
   const text = await readFile(f, 'utf8')
   for (const m of text.matchAll(/https?:\/\/[^\s"'<>)`\\]+/g)) {
     const url = m[0]
-    if (siteOrigin && url.startsWith(siteOrigin)) continue
+    try { if (siteOrigin && new URL(url).origin === siteOrigin) continue } catch { /* not a URL */ }
     if (allowed.some((re) => re.test(url))) continue
+    try { if (publisher?.url && new URL(url).origin === new URL(publisher.url).origin) continue } catch { /* not a URL */ } // the parent company's own site, from the structured data
     fail(`unexpected external URL in ${path.relative(dist, f)}: ${url}`)
   }
 }

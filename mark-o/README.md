@@ -51,6 +51,8 @@ mark-o/
 
 Copy lives in `src/data/content.ts`, not in the components. Every claim there comes from the mark.O repo; do not add one that is not in its docs.
 
+The parent company (RiverLabs.io: name, link, contact email and logo mark) is one `company` entry in `src/data/content.ts`. The footer, the structured data's publisher, the `author` meta tag and the 404 page all read it, and `npm run check` fails if they disagree. The logo mark in `public/images/riverlabs-logo.svg` is a copy of the company site's own favicon (https://river-labs.io/favicon.svg).
+
 ## The download button
 
 The site shows **Coming soon for Mac** until the release can be reached by the public. The v0.1.0 release URL is already in `src/data/content.ts`.
@@ -110,10 +112,10 @@ To publish without a code change (for example after flipping `download.enabled`)
 - macOS builds are ad-hoc signed and not notarized, so first launch needs right-click, then Open (shown in the final section).
 - No Windows build is published, so the site does not mention Windows.
 - OKF trust labels are advisory, not security. mark.O is not affiliated with Google or Apple.
-- No price, privacy-policy page or support contact exists, so none is shown.
+- No price or privacy-policy page exists, so none is shown. The only contact is the RiverLabs.io email in the footer.
 
 ## Still needed
 
 - A public release URL (flip the switch above).
-- A privacy page and a support contact, if you want them in the footer.
+- A privacy page, if you want one in the footer.
 - Caption track for the film.

@@ -25,8 +25,21 @@ export const site = {
   name: 'mark.O',
   tagline: 'Read. Write. Organise.',
   description: 'A private, offline Markdown workspace for macOS.',
-  company: 'River Labs',
   year: 2026,
+}
+
+// The parent company. The footer, the structured data, the author meta tag and the 404 page all read this.
+const companyLogoPath = 'images/riverlabs-logo.svg'
+
+export const company = {
+  name: 'RiverLabs.io',
+  byline: 'A RiverLabs.io product',
+  url: 'https://river-labs.io/',
+  email: 'riverlabs.io@gmail.com',
+  // The logo mark, copied from the company's own site (https://river-labs.io/favicon.svg).
+  // Decorative: it always sits inside a link whose text already says the company name.
+  logoPath: companyLogoPath,
+  logo: { src: asset(companyLogoPath), width: 32, height: 32, alt: '' } as Img,
 }
 
 export const nav = [
@@ -220,6 +233,7 @@ export const finalCta = {
 }
 
 export const footer = {
+  contactLabel: 'Contact',
   blurb: 'A private, offline Markdown workspace for macOS. Read. Write. Organise.',
   links: [
     { label: 'Overview', href: '#overview' },

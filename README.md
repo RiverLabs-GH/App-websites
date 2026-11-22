@@ -1,12 +1,12 @@
 # App-websites
 
-The websites for River Labs apps, one module per app.
+The websites for RiverLabs.io apps, one module per app.
 
 ## Modules
 
 | Module | App | Status |
 |---|---|---|
-| [`mark-o/`](mark-o/) | [mark.O](https://github.com/RiverLabs-GH/mark.O), a private, offline Markdown workspace for macOS and Windows | Scaffold only, no site yet |
+| [`mark-o/`](mark-o/) | [mark.O](https://github.com/RiverLabs-GH/mark.O), a private, offline Markdown workspace for macOS | Scaffold only, no site yet |
 
 ## Layout
 
@@ -28,4 +28,4 @@ Each module is independent: it has its own README, its own dependencies and its 
 
 ---
 
-*Copyright © 2026 River Labs. All rights reserved.*
+*Copyright © 2026 RiverLabs.io. All rights reserved.*
