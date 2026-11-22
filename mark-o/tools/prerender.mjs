@@ -9,13 +9,20 @@ const siteUrl = (process.env.VITE_SITE_URL
   || (await readFile('.env.production', 'utf8')).match(/^VITE_SITE_URL=(.+)$/m)?.[1]
   || '').trim().replace(/\/?$/, '/')
 
-const { render } = await import(pathToFileURL(path.join(root, 'dist-ssr/entry-server.js')).href)
+const { render, company } = await import(pathToFileURL(path.join(root, 'dist-ssr/entry-server.js')).href)
 const html = await render()
 
 const file = path.join(root, 'dist/index.html')
 const page = await readFile(file, 'utf8')
 if (!page.includes('<div id="app"></div>')) throw new Error('mount point not found in dist/index.html')
-await writeFile(file, page.replace('<div id="app"></div>', `<div id="app">${html}</div>`))
+// The publisher and author come from the same company entry as the footer, so they cannot drift apart.
+const publisher = { '@type': 'Organization', name: company.name, url: company.url, logo: `${siteUrl}${company.logoPath}`, email: company.email }
+const out = page
+  .replace('<div id="app"></div>', `<div id="app">${html}</div>`)
+  .replace('"__PUBLISHER__"', JSON.stringify(publisher))
+  .replace('__COMPANY_NAME__', company.name)
+if (out.includes('__PUBLISHER__') || out.includes('__COMPANY_NAME__')) throw new Error('a company placeholder was not replaced in dist/index.html')
+await writeFile(file, out)
 
 const today = new Date().toISOString().slice(0, 10)
 await writeFile(path.join(root, 'dist/sitemap.xml'),
@@ -42,6 +49,8 @@ main{width:min(100% - 2.5rem,34rem);padding-block:4rem;text-align:center}
 img{display:block;height:1.75rem;width:auto;margin:0 auto 2.5rem}
 h1{margin:0 0 1rem;font-size:clamp(2rem,1.4rem + 3vw,3rem);font-weight:700;line-height:1.1;letter-spacing:-.03em}
 p{margin:0 0 2rem;color:#515154}
+p.by{margin:2rem 0 0;font-size:.9375rem}
+p.by a{display:inline;min-height:0;padding:0;background:none;color:#515154;font-weight:400;text-decoration:underline}
 a{display:inline-flex;align-items:center;min-height:2.75rem;padding:0 1.5rem;border-radius:999px;background:#1d1d1f;color:#fff;font-weight:500;text-decoration:none}
 a:hover{background:#000}
 a:focus-visible{outline:2px solid #2457c5;outline-offset:3px}
@@ -53,6 +62,7 @@ a:focus-visible{outline:2px solid #2457c5;outline-offset:3px}
 <h1>Page not found</h1>
 <p>There is nothing at this address.</p>
 <a href="${siteUrl}">Go to the mark.O home page</a>
+<p class="by"><a href="${company.url}">${company.byline}</a></p>
 </main>
 </body>
 </html>
