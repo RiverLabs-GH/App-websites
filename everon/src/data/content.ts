@@ -19,7 +19,7 @@ export function capture(id: string, theme: string, alt: string): Capture {
 export const site = {
   name: 'EverOn',
   title: 'EverOn: Keep Your Mac Awake for Long AI Coding Runs',
-  description: 'EverOn is a menu-bar app for macOS that keeps your Mac awake for long AI coding runs, with limits you set and a reason you can read.',
+  description: 'EverOn is a menu-bar app for macOS. Set a rule once and it keeps your Mac awake for long AI coding runs, then lets go, with limits you set.',
   requirement: 'Built for macOS 13 or later',
   captureNote: 'Captured from the EverOn app, with sample data.',
   generatedNote: 'Interface shown from the EverOn design spec.',
@@ -35,8 +35,8 @@ export const nav = [
 
 export const hero = {
   eyebrow: 'A menu-bar app for macOS',
-  title: 'Keep your Mac awake for long AI coding runs, with limits you set and a reason you can read.',
-  lead: 'Start a timed session in one click, or set a rule that keeps the Mac awake while your coding app is open.',
+  title: 'Set it once. EverOn keeps your Mac awake for long AI coding runs, then lets go.',
+  lead: 'A rule switches the hold on and off for you while your terminal or editor is open, with limits you set and a reason you can read. Prefer manual? Start a timed session in one click.',
   primary: 'Coming soon for Mac',
   secondary: 'See how it works',
   demoLabel: 'Interactive demo',
@@ -54,7 +54,7 @@ export const problem = {
 }
 
 export const experiences = {
-  title: 'Instant when you want it. Automatic when you don’t.',
+  title: 'Set it once. Or take over in one click.',
   instant: {
     eyebrow: 'Instant control',
     title: 'One or two clicks from the menu bar',
@@ -62,10 +62,10 @@ export const experiences = {
     points: ['15m, 1h or until a time', 'System, display or both', 'Pause, extend 15 min, stop'],
   },
   automation: {
-    eyebrow: 'Intelligent automation',
-    title: 'Rules that remember for you',
-    text: 'Build a rule once, such as “keep the Mac awake while my terminal or editor is open”. EverOn holds when it opens and lets go when it closes, and a reason line says why.',
-    points: ['Rules by app, power, display and schedule', 'Profiles that group rules', 'A reason line in plain words'],
+    eyebrow: 'Automatic',
+    title: 'Rules that configure the hold for you',
+    text: 'Build a rule once, such as “keep the Mac awake while my terminal or editor is open”. EverOn holds when it opens and lets go when it closes, with no switch to remember. Rules can also watch power, a display or a schedule, and a reason line says why.',
+    points: ['Set once, then hands-off', 'Rules by app, power, display and schedule', 'Profiles that group rules', 'A reason line in plain words'],
   },
 }
 
@@ -124,6 +124,21 @@ export const demos = {
   },
 }
 
+export const agents = {
+  eyebrow: 'Agent rule · optional, not yet verified',
+  title: 'Built to follow your AI tool, starting with Claude Code.',
+  text: 'An optional agent rule can watch the AI tool you choose, hold the Mac while it looks busy, and let go after a grace period you set. It is built, but not yet verified on real tools.',
+  points: [
+    'Claude Code first: with your agreement EverOn can add its hook lines, and remove them again.',
+    'A grace period you set, 30 minutes by default, so a short pause doesn’t drop the hold.',
+    'Limits still win: the maximum session length, battery stops and the global pause apply to every hold.',
+  ],
+  flowTitle: 'How the rule is meant to work.',
+  flow: ['The tool looks busy', 'EverOn holds the Mac', 'The tool goes quiet', 'The grace period runs', 'EverOn lets go'],
+  badge: 'Not yet verified on real tools',
+  caveat: 'It can’t see inside SSH sessions, Docker or virtual machines, and a long silent phase can be missed. Until it is verified, rely on timed sessions and app rules.',
+}
+
 export const trust = {
   eyebrow: 'Trust and safety',
   title: 'Staying awake should be a decision you can see, bound and undo.',
@@ -147,7 +162,7 @@ export const trust = {
   statesTitle: 'Five states, each in words',
   honest: {
     title: 'Honest about itself',
-    text: 'EverOn also has an optional agent rule that follows a chosen AI tool. It is built, but not yet verified on real tools, so this page doesn’t rely on it. Timed sessions and app rules are where to start.',
+    text: 'The optional agent rule described above is built, but not yet verified on real tools. Timed sessions and app rules are what to rely on today.',
   },
   safetyCaption: 'Safety and battery settings.',
 }
@@ -169,6 +184,7 @@ export const features = {
     { id: 'timed', title: 'Timed and until-a-time sessions', text: 'Start for 15 minutes, an hour or until a time of day, from the menu bar.', tag: 'Built and tested', tone: 'ok', workflows: ['ai', 'present', 'everyday'] },
     { id: 'modes', title: 'System, display or both', text: 'Choose what stays awake. The app explains the difference before you start.', tag: 'Built and tested', tone: 'ok', workflows: ['ai', 'present', 'everyday'] },
     { id: 'apps', title: 'App rules', text: 'Keep the Mac awake while a chosen app is open, such as your terminal or editor.', tag: 'Built and tested', tone: 'ok', workflows: ['ai'] },
+    { id: 'agent', title: 'AI tool rule, Claude Code first', text: 'An optional rule that holds the Mac while a chosen AI tool looks busy. Built, but not yet verified on real tools.', tag: 'Not yet verified', tone: 'warn', workflows: ['ai'] },
     { id: 'schedule', title: 'Schedules and profiles', text: 'Limit a rule to days and times, and group rules into profiles you turn on together.', tag: 'Built and tested', tone: 'ok', workflows: ['remote', 'present'] },
     { id: 'reason', title: 'A reason line for every hold', text: 'Plain words say which rule or session is holding the Mac, and why a hold ended.', tag: 'Built and tested', tone: 'ok', workflows: ['ai', 'present', 'remote', 'battery', 'everyday'] },
     { id: 'history', title: 'History and timeline', text: 'See what held your Mac, when and why it stopped. The Free edition keeps 30 days.', tag: 'Built and tested', tone: 'ok', workflows: ['ai'] },
@@ -216,7 +232,7 @@ export const footer = { product: 'EverOn, the intelligent keep-awake companion f
 export const featureList = [
   'Timed and until-a-time keep-awake sessions from the menu bar',
   'System, display or both',
-  'Rules that keep the Mac awake while a chosen app is open',
+  'Rules that keep the Mac awake while a chosen app is open, set once',
   'A plain-words reason for every hold',
   'Maximum session length, battery stops and a global pause',
   'Works offline with no account',

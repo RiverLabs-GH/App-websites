@@ -3,6 +3,7 @@ import Navbar from './components/sections/Navbar.vue'
 import Hero from './components/sections/Hero.vue'
 import Problem from './components/sections/Problem.vue'
 import Experiences from './components/sections/Experiences.vue'
+import Agents from './components/sections/Agents.vue'
 import Tour from './components/sections/Tour.vue'
 import Trust from './components/sections/Trust.vue'
 import Features from './components/sections/Features.vue'
@@ -20,6 +21,7 @@ import ReadingProgress from './components/ui/ReadingProgress.vue'
     <Hero />
     <Problem />
     <Experiences />
+    <Agents />
     <Tour />
     <Trust />
     <Features />
