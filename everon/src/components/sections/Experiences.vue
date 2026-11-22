@@ -14,14 +14,14 @@ const e = experiences
       <h2 id="exp-title" v-reveal class="title">{{ e.title }}</h2>
       <div class="cols">
         <article v-reveal class="col">
-          <p class="eyebrow">{{ e.instant.eyebrow }}</p><h3 class="big">{{ e.instant.title }}</h3><p>{{ e.instant.text }}</p>
-          <ul class="pts"><li v-for="p in e.instant.points" :key="p">{{ p }}</li></ul>
-          <div class="shot"><CaptureImage frame="popover" :shot="capture('popover-active', theme, 'The EverOn popover with an active one-hour session, a countdown and a Stop session button.')" :caption="site.captureNote" /></div>
-        </article>
-        <article v-reveal="100" class="col">
           <p class="eyebrow">{{ e.automation.eyebrow }}</p><h3 class="big">{{ e.automation.title }}</h3><p>{{ e.automation.text }}</p>
           <ul class="pts"><li v-for="p in e.automation.points" :key="p">{{ p }}</li></ul>
           <div class="demo"><RuleDemo :theme="theme" /><p class="caption">{{ site.generatedNote }}</p></div>
+        </article>
+        <article v-reveal="100" class="col">
+          <p class="eyebrow">{{ e.instant.eyebrow }}</p><h3 class="big">{{ e.instant.title }}</h3><p>{{ e.instant.text }}</p>
+          <ul class="pts"><li v-for="p in e.instant.points" :key="p">{{ p }}</li></ul>
+          <div class="shot"><CaptureImage frame="popover" :shot="capture('popover-active', theme, 'The EverOn popover with an active one-hour session, a countdown and a Stop session button.')" :caption="site.captureNote" /></div>
         </article>
       </div>
     </div>
