@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://riverlabs-gh.github.io/App-websites/mark-o/sitemap.xml
