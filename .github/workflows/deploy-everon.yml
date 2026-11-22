@@ -1,0 +1,125 @@
+name: Deploy everon site
+
+# Publishes the everon module to GitHub Pages at
+#   https://<owner>.github.io/App-websites/everon/
+# whenever it changes on main (or when run by hand). The same build and checks as CI run first,
+# so a broken build is never published, and a smoke test fetches the live site afterwards.
+#
+# Each module has its own deploy file and they do not know about each other. They share one Pages site by
+# publishing into their own folder on the gh-pages branch: this workflow replaces everon/ and leaves every
+# other folder (mark-o/, the root 404.html) exactly as it is.
+#
+# One-time setup:
+#   1. The repository must be public (GitHub Pages on a private repository needs a paid plan).
+#   2. Settings > Pages > Build and deployment > Source: Deploy from a branch > gh-pages, folder / (root).
+#      (The branch is created by the first deploy run; set the source after that run.)
+#   3. Custom domain? Set the repository variable SITE_BASE_URL (for example https://example.com/apps).
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'everon/**'
+      - '.github/workflows/deploy-everon.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: everon
+    outputs:
+      base_url: ${{ steps.base.outputs.url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: everon/package-lock.json
+      - id: base
+        run: |
+          owner="$(echo '${{ github.repository_owner }}' | tr '[:upper:]' '[:lower:]')"
+          url="${{ vars.SITE_BASE_URL }}"
+          [ -n "$url" ] || url="https://${owner}.github.io/${{ github.event.repository.name }}"
+          echo "url=${url%/}" >> "$GITHUB_OUTPUT"
+      - run: npm ci
+      - name: Build (type-check, bundle, prerender)
+        run: npm run build
+        env:
+          VITE_SITE_URL: ${{ steps.base.outputs.url }}/everon/
+      - name: Check the build output
+        run: npm run check
+      - uses: actions/upload-artifact@v4
+        with:
+          name: everon-site
+          path: everon/dist
+          if-no-files-found: error
+
+  publish:
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    # One publish at a time across every module, so two deploys never race to push the branch.
+    concurrency:
+      group: pages-branch
+      cancel-in-progress: false
+    environment:
+      name: github-pages
+      url: ${{ needs.build.outputs.base_url }}/everon/
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: everon-site
+          path: site
+      - name: Replace everon/ on the gh-pages branch
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          remote="https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.git"
+          if git ls-remote --exit-code --heads "$remote" gh-pages >/dev/null 2>&1; then
+            git clone --quiet --depth 1 --branch gh-pages "$remote" pages
+          else
+            mkdir pages && git -C pages init --quiet -b gh-pages && git -C pages remote add origin "$remote"
+          fi
+          rm -rf pages/everon
+          mkdir -p pages/everon
+          cp -R site/. pages/everon/
+          touch pages/.nojekyll
+          cd pages
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then echo "No change to publish."; exit 0; fi
+          git commit --quiet -m "Deploy everon from ${GITHUB_SHA::7}"
+          git push --quiet origin HEAD:gh-pages
+
+  # Fetches the live site once Pages has served the new files (can take a minute or two).
+  smoke:
+    needs: [build, publish]
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: everon/tools
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Wait for the site to be served
+        run: |
+          url="${{ needs.build.outputs.base_url }}/everon/"
+          for i in $(seq 1 30); do
+            code=$(curl -s -o /dev/null -w '%{http_code}' "$url" || true)
+            [ "$code" = "200" ] && exit 0
+            echo "attempt $i: HTTP $code"; sleep 10
+          done
+          echo "The site did not come up at $url. Check Settings > Pages (source must be gh-pages)." ; exit 1
+      - run: node everon/tools/smoke-live.mjs "${{ needs.build.outputs.base_url }}/everon/"

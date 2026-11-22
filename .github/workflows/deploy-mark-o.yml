@@ -5,13 +5,15 @@ name: Deploy mark-o site
 # whenever it changes on main (or when run by hand). The same build and checks as CI run first,
 # so a broken build is never published, and a smoke test fetches the live site afterwards.
 #
-# A repository has one Pages site and it serves exactly one artifact at its root. The build is
-# therefore staged into a folder named mark-o/ before upload, so the site lands under /mark-o/
-# and a later app module can be added next to it.
+# Each module has its own deploy file and they do not know about each other. They share one Pages site by
+# publishing into their own folder on the gh-pages branch: this workflow replaces mark-o/ (and the root
+# 404.html, which belongs to mark-o) and leaves every other folder, such as everon/, exactly as it is.
 #
 # One-time setup:
 #   1. The repository must be public (GitHub Pages on a private repository needs a paid plan).
-#   2. Settings > Pages > Build and deployment > Source: GitHub Actions.
+#   2. Settings > Pages > Build and deployment > Source: Deploy from a branch > gh-pages, folder / (root).
+#      (The branch is created by the first deploy run; set the source after that run.)
+#   3. Custom domain? Set the repository variable SITE_BASE_URL (for example https://example.com/apps).
 on:
   push:
     branches: [main]
@@ -22,13 +24,6 @@ on:
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
-
-# One deployment at a time; a newer push replaces a queued one but never cancels a running deploy.
-concurrency:
-  group: pages
-  cancel-in-progress: false
 
 jobs:
   build:
@@ -37,6 +32,8 @@ jobs:
     defaults:
       run:
         working-directory: mark-o
+    outputs:
+      base_url: ${{ steps.base.outputs.url }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -44,45 +41,74 @@ jobs:
           node-version: 22
           cache: npm
           cache-dependency-path: mark-o/package-lock.json
-      # Reads the site's real address from the Pages settings, so a custom domain just works.
-      - id: pages
-        uses: actions/configure-pages@v5
+      - id: base
+        run: |
+          owner="$(echo '${{ github.repository_owner }}' | tr '[:upper:]' '[:lower:]')"
+          url="${{ vars.SITE_BASE_URL }}"
+          [ -n "$url" ] || url="https://${owner}.github.io/${{ github.event.repository.name }}"
+          echo "url=${url%/}" >> "$GITHUB_OUTPUT"
       - run: npm ci
       - name: Build (type-check, bundle, prerender)
         run: npm run build
         env:
-          VITE_SITE_URL: ${{ steps.pages.outputs.base_url }}/mark-o/
+          VITE_SITE_URL: ${{ steps.base.outputs.url }}/mark-o/
       - name: Check the build output
         run: npm run check
-      - name: Stage the build under /mark-o/
-        run: |
-          mkdir -p _site/mark-o
-          cp -R dist/. _site/mark-o/
-          # Pages serves 404.html from the root of the published site, for every unknown address.
-          mv _site/mark-o/404.html _site/404.html
-      - uses: actions/upload-pages-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
-          path: mark-o/_site
+          name: mark-o-site
+          path: mark-o/dist
+          if-no-files-found: error
 
-  deploy:
+  publish:
     needs: build
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    permissions:
+      contents: write
+    # One publish at a time across every module, so two deploys never race to push the branch.
+    concurrency:
+      group: pages-branch
+      cancel-in-progress: false
     environment:
       name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}mark-o/
-    outputs:
-      page_url: ${{ steps.deployment.outputs.page_url }}
+      url: ${{ needs.build.outputs.base_url }}/mark-o/
     steps:
-      - id: deployment
-        uses: actions/deploy-pages@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: mark-o-site
+          path: site
+      - name: Replace mark-o/ on the gh-pages branch
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          remote="https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.git"
+          if git ls-remote --exit-code --heads "$remote" gh-pages >/dev/null 2>&1; then
+            git clone --quiet --depth 1 --branch gh-pages "$remote" pages
+          else
+            mkdir pages && git -C pages init --quiet -b gh-pages && git -C pages remote add origin "$remote"
+          fi
+          rm -rf pages/mark-o
+          mkdir -p pages/mark-o
+          cp -R site/. pages/mark-o/
+          # Pages serves 404.html from the root of the published site, for every unknown address.
+          cp site/404.html pages/404.html
+          touch pages/.nojekyll
+          cd pages
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then echo "No change to publish."; exit 0; fi
+          git commit --quiet -m "Deploy mark-o from ${GITHUB_SHA::7}"
+          git push --quiet origin HEAD:gh-pages
 
-  # Fetches the live site: the page, its assets, the canonical and Open Graph targets, the sitemap,
-  # robots.txt and a video range request. Fails the run if any of them is not where the page says.
+  # Fetches the live site once Pages has served the new files (can take a minute or two): the page, its assets,
+  # the canonical and Open Graph targets, the sitemap, robots.txt and a video range request.
   smoke:
-    needs: deploy
+    needs: [build, publish]
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 8
     steps:
       - uses: actions/checkout@v4
         with:
@@ -90,4 +116,13 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - run: node mark-o/tools/smoke-live.mjs "${{ needs.deploy.outputs.page_url }}mark-o/"
+      - name: Wait for the site to be served
+        run: |
+          url="${{ needs.build.outputs.base_url }}/mark-o/"
+          for i in $(seq 1 30); do
+            code=$(curl -s -o /dev/null -w '%{http_code}' "$url" || true)
+            [ "$code" = "200" ] && exit 0
+            echo "attempt $i: HTTP $code"; sleep 10
+          done
+          echo "The site did not come up at $url. Check Settings > Pages (source must be gh-pages)." ; exit 1
+      - run: node mark-o/tools/smoke-live.mjs "${{ needs.build.outputs.base_url }}/mark-o/"

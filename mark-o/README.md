@@ -86,15 +86,15 @@ Two workflows live at the repository root in `.github/workflows/`, both scoped t
 | Workflow | Runs on | What it does |
 |---|---|---|
 | `mark-o-ci.yml` | every pull request that touches `mark-o/` | `npm ci`, `npm run build` (type-check, bundle, prerender), `npm run check`. Publishes nothing. |
-| `deploy-mark-o.yml` | push to `main` that touches `mark-o/`, or run by hand | The same build and check, then stages the build under a `mark-o/` folder and publishes it to GitHub Pages, then runs `npm run smoke` against the live site. A failed check stops the deploy; a failed smoke test fails the run. |
+| `deploy-mark-o.yml` | push to `main` that touches `mark-o/`, or run by hand | The same build and check, then replaces the `mark-o/` folder on the `gh-pages` branch, then runs `npm run smoke` against the live site. A failed check stops the deploy; a failed smoke test fails the run. |
 
 `npm run check` (`tools/check-dist.mjs`) fails the build if the output has: an empty or missing prerender, a root-absolute URL (it would break under the subpath), a missing file or broken `#anchor`, a dangling `aria-controls` or `aria-labelledby`, an image without alt text, a missing title, description, canonical, Open Graph tag, sitemap or robots file, a third-party URL, a network API in the bundle, or a file over 50 MB.
 
-A repository has one Pages site, and it serves exactly one artifact at its root. The deploy therefore stages the build into a folder named `mark-o/` before uploading, so the site is served at `https://riverlabs-gh.github.io/App-websites/mark-o/` and a later app module can be added beside it. The bare `https://riverlabs-gh.github.io/App-websites/` has no page of its own.
+A repository has one Pages site. Each module has its own deploy file and publishes only its own folder on the `gh-pages` branch (`mark-o/` here, `everon/` for the other module), so neither deploy can remove the other's site. The site is served at `https://riverlabs-gh.github.io/App-websites/mark-o/`. The bare `https://riverlabs-gh.github.io/App-websites/` has no page of its own. Setup: Settings > Pages > Source: Deploy from a branch > `gh-pages` (root); the first deploy run creates the branch.
 
-The build also writes a branded `404.html` (self-contained, `noindex`, absolute URLs only, because it is served at any depth). The deploy moves it from `mark-o/` to the root of the published site, which is the one place GitHub Pages looks for it, and it then answers every unknown address under the site.
+The build also writes a branded `404.html` (self-contained, `noindex`, absolute URLs only, because it is served at any depth). The deploy copies it to the root of the published site, which is the one place GitHub Pages looks for it, and it then answers every unknown address under the site.
 
-The deploy job reads the site's address from the Pages settings (`actions/configure-pages`) and passes it to the build as `VITE_SITE_URL`, so a custom domain needs no change. Local builds use `.env.production`.
+The deploy derives the site's address from the repository (`https://<owner>.github.io/<repo>`, or the repository variable `SITE_BASE_URL` for a custom domain) and passes it to the build as `VITE_SITE_URL`. Local builds use `.env.production`.
 
 `npm run smoke` (`tools/smoke-live.mjs`) fetches the live page and checks that its canonical link matches the address it is served at, that the Open Graph image, sitemap, `robots.txt` and every asset the page references resolve, that the video answers range requests, and that an unknown address returns the branded 404 page with a 404 status. It retries a 404 for about a minute, because Pages can take a moment to serve a fresh deploy. The build-folder check cannot see any of this, which is how a deploy once published the site at the wrong address.
 
