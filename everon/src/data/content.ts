@@ -25,7 +25,24 @@ export const site = {
   generatedNote: 'Interface shown from the EverOn design spec.',
 }
 
-export const company = { name: 'RiverLabs.io', line: 'From RiverLabs.io', copyright: 'Copyright © 2026 RiverLabs.io.' }
+// The parent company, as on the mark.O site (same name, link, contact and logo mark). The footer reads this, and the structured
+// data's publisher must match it (npm run check fails if they disagree). The logo mark is a copy of the company site's own favicon.
+export const company = {
+  name: 'RiverLabs.io',
+  byline: 'A RiverLabs.io product',
+  url: 'https://river-labs.io/',
+  email: 'riverlabs.io@gmail.com',
+  logo: asset('brand/riverlabs-logo.svg'),
+  copyright: 'Copyright © 2026 RiverLabs.io.',
+}
+
+// A sibling product from the same company. Its address follows this site's own base address (…/everon/ -> …/mark-o/).
+const siteBase = (import.meta.env?.VITE_SITE_URL as string | undefined) ?? 'https://riverlabs-gh.github.io/App-websites/everon/'
+export const markO = {
+  name: 'mark.O',
+  text: 'A private, offline Markdown workspace for macOS.',
+  url: new URL('../mark-o/', siteBase).href,
+}
 
 export const nav = [
   { label: 'Overview', href: '#top', group: 'overview' },
@@ -167,7 +184,7 @@ export const trust = {
   safetyCaption: 'Safety and battery settings.',
 }
 
-export type Feature = { id: string; title: string; text: string; tag: string; tone: 'ok' | 'warn'; workflows: string[] }
+export type Feature = { id: string; title: string; text: string; workflows: string[] }
 export const workflows = [
   { id: 'all', label: 'All' },
   { id: 'ai', label: 'Long AI runs' },
@@ -178,22 +195,22 @@ export const workflows = [
 ]
 export const features = {
   title: 'Built around how you work.',
-  lead: 'Filter by what you do. Each card says where it stands today.',
+  lead: 'Filter by what you do.',
   filterLabel: 'Filter features by workflow',
   items: [
-    { id: 'timed', title: 'Timed and until-a-time sessions', text: 'Start for 15 minutes, an hour or until a time of day, from the menu bar.', tag: 'Built and tested', tone: 'ok', workflows: ['ai', 'present', 'everyday'] },
-    { id: 'modes', title: 'System, display or both', text: 'Choose what stays awake. The app explains the difference before you start.', tag: 'Built and tested', tone: 'ok', workflows: ['ai', 'present', 'everyday'] },
-    { id: 'apps', title: 'App rules', text: 'Keep the Mac awake while a chosen app is open, such as your terminal or editor.', tag: 'Built and tested', tone: 'ok', workflows: ['ai'] },
-    { id: 'agent', title: 'AI tool rule, Claude Code first', text: 'An optional rule that holds the Mac while a chosen AI tool looks busy. Built, but not yet verified on real tools.', tag: 'Not yet verified', tone: 'warn', workflows: ['ai'] },
-    { id: 'schedule', title: 'Schedules and profiles', text: 'Limit a rule to days and times, and group rules into profiles you turn on together.', tag: 'Built and tested', tone: 'ok', workflows: ['remote', 'present'] },
-    { id: 'reason', title: 'A reason line for every hold', text: 'Plain words say which rule or session is holding the Mac, and why a hold ended.', tag: 'Built and tested', tone: 'ok', workflows: ['ai', 'present', 'remote', 'battery', 'everyday'] },
-    { id: 'history', title: 'History and timeline', text: 'See what held your Mac, when and why it stopped. The Free edition keeps 30 days.', tag: 'Built and tested', tone: 'ok', workflows: ['ai'] },
-    { id: 'limits', title: 'Maximum length and battery stops', text: 'A maximum session length, battery warning and stop levels, and a global pause.', tag: 'Built and tested', tone: 'ok', workflows: ['battery', 'ai'] },
-    { id: 'offline', title: 'Works offline', text: 'No account and no network call unless you turn on an alert.', tag: 'Built and tested', tone: 'ok', workflows: ['ai', 'battery', 'everyday', 'remote'] },
-    { id: 'devices', title: 'Device and network rules', text: 'Rules for displays, USB, Wi-Fi, VPN, Bluetooth and audio.', tag: 'Tested with simulated devices', tone: 'warn', workflows: ['remote'] },
-    { id: 'alerts', title: 'Webhook and Shortcuts alerts', text: 'Send a short alert to an address you choose, or run a Shortcut. You can pair a receiver you run yourself.', tag: 'Built and tested', tone: 'ok', workflows: ['ai', 'remote'] },
-    { id: 'themes', title: 'Themes', text: 'System Adaptive, Midnight, Arctic, OLED Black and Aurora, in light and dark.', tag: 'Built and tested', tone: 'ok', workflows: ['everyday'] },
-    { id: 'switcher', title: 'Quick switcher', text: 'Press ⌘K to start a session, open a page or pause automations from the keyboard.', tag: 'Built and tested', tone: 'ok', workflows: ['everyday', 'ai'] },
+    { id: 'timed', title: 'Start in one click', text: 'Pick 15 minutes, an hour or a time of day from the menu bar, then pause, extend or stop whenever you like.', workflows: ['ai', 'present', 'everyday'] },
+    { id: 'modes', title: 'Choose what stays awake', text: 'Keep the system awake, the display awake or both. The app explains the difference before you start.', workflows: ['ai', 'present', 'everyday'] },
+    { id: 'apps', title: 'Hands-off with app rules', text: 'Name your terminal or editor once. EverOn holds the Mac while it is open and lets go when it closes.', workflows: ['ai'] },
+    { id: 'agent', title: 'A rule for your AI tool', text: 'Claude Code first. It is optional and not yet verified on real tools, so lean on app rules today.', workflows: ['ai'] },
+    { id: 'schedule', title: 'Rules that follow your day', text: 'Limit a rule to the days and times you work, and switch groups of rules on together as a profile.', workflows: ['remote', 'present'] },
+    { id: 'reason', title: 'Always know why', text: 'A plain-words line says which rule or session is holding the Mac, and why a hold ended.', workflows: ['ai', 'present', 'remote', 'battery', 'everyday'] },
+    { id: 'history', title: 'See what held your Mac', text: 'A timeline shows when each hold started, what caused it and why it stopped. The Free edition keeps 30 days.', workflows: ['ai'] },
+    { id: 'limits', title: 'Limits that protect your battery', text: 'Set a maximum session length and battery warning and stop levels. One global pause releases everything at once.', workflows: ['battery', 'ai'] },
+    { id: 'offline', title: 'Works offline, no account', text: 'EverOn makes no network call unless you turn on an alert you set up.', workflows: ['ai', 'battery', 'everyday', 'remote'] },
+    { id: 'devices', title: 'Rules for your devices', text: 'Rules that react to a display, USB device, Wi-Fi, VPN, Bluetooth or audio. Tested with simulated devices.', workflows: ['remote'] },
+    { id: 'alerts', title: 'Get a nudge when it matters', text: 'Send a short alert to an address you choose, or run a Shortcut. You can pair a receiver you run yourself.', workflows: ['ai', 'remote'] },
+    { id: 'themes', title: 'Looks right in any light', text: 'System Adaptive, Midnight, Arctic, OLED Black and Aurora, each in light and dark.', workflows: ['everyday'] },
+    { id: 'switcher', title: 'Keyboard first', text: 'Press ⌘K to start a session, jump to a page or pause automations without leaving the keyboard.', workflows: ['everyday', 'ai'] },
   ] as Feature[],
   themesTitle: 'Light, dark and three more',
   themes: ['light', 'dark', 'midnight', 'arctic', 'oled', 'aurora'].map((t) => ({ id: t, label: ({ light: 'Light', dark: 'Dark', midnight: 'Midnight', arctic: 'Arctic', oled: 'OLED Black', aurora: 'Aurora' } as Record<string, string>)[t] })),
@@ -227,7 +244,7 @@ export const finalCta = {
   requirement: site.requirement,
 }
 
-export const footer = { product: 'EverOn, the intelligent keep-awake companion for macOS.', parent: company.line, copyright: company.copyright, top: 'Back to top' }
+export const footer = { product: 'EverOn, the intelligent keep-awake companion for macOS.', alsoLabel: 'Also from RiverLabs.io', contactLabel: 'Contact', copyright: company.copyright, top: 'Back to top' }
 
 export const featureList = [
   'Timed and until-a-time keep-awake sessions from the menu bar',

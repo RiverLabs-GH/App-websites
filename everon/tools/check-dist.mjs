@@ -48,7 +48,8 @@ for (const attr of ['aria-controls', 'aria-labelledby', 'aria-describedby']) for
 
 // 5. Images: alt text, dimensions, lazy loading below the fold.
 const imgs = [...html.matchAll(/<img\b[^>]*>/g)].map((m) => m[0])
-for (const t of imgs) { if (!/\salt="[^"]+"/.test(t)) fail(`image without alt text: ${t.slice(0, 80)}`); if (!/\swidth="\d+"/.test(t) || !/\sheight="\d+"/.test(t)) fail(`image without width and height: ${t.slice(0, 80)}`) }
+for (const t of imgs) { const decorative = /\salt=""/.test(t) && /riverlabs-logo/.test(t) // the company mark sits inside a link whose text already names the company
+    if (!decorative && !/\salt="[^"]+"/.test(t)) fail(`image without alt text: ${t.slice(0, 80)}`); if (!/\swidth="\d+"/.test(t) || !/\sheight="\d+"/.test(t)) fail(`image without width and height: ${t.slice(0, 80)}`) }
 if (imgs.length && !imgs.some((t) => /loading="lazy"/.test(t))) fail('no image is lazy-loaded')
 // Every real-capture image carries the sample-data note somewhere on the page.
 if (!html.includes('Captured from the EverOn app, with sample data.')) fail('the capture caption (sample data) is missing')
@@ -120,8 +121,19 @@ if (!/--dur-base/.test(allCss)) fail('motion tokens (--dur-base) are missing fro
   else { const t = await readFile(scr, 'utf8'); if (!/<meta name="robots" content="noindex"/.test(t)) fail('screens/index.html is not noindex') ; for (const m of t.matchAll(/(?:src|href)="(\.\.?\/[^"#?]+)"/g)) if (!existsSync(path.resolve(dist, 'screens', m[1]))) fail(`screens/index.html references a missing file: ${m[1]}`) }
 }
 
+// 7b. The company reference: the footer links to the company site and the structured data names the same publisher; the sibling product link resolves on this origin.
+{
+  const ld = JSON.parse(html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)?.[1] ?? '{}')
+  const pubUrl = ld.publisher?.url
+  if (!pubUrl || !html.includes(`href="${pubUrl}"`)) fail(`the footer does not link to the structured data's publisher (${pubUrl})`)
+  if (!/href="mailto:[^"]+"/.test(html)) fail('the footer has no company contact link')
+  const mo = html.match(/<a class="app"[^>]*href="([^"]+)"/)?.[1]
+  if (!mo || !canonical || new URL(mo).origin !== new URL(canonical).origin || !/\/mark-o\/$/.test(mo)) fail(`the mark.O link is wrong: ${mo}`)
+}
+
 // 8. Fully static and private: no third-party hosts, no network APIs.
-const allowed = [/^https?:\/\/www\.w3\.org\//, /^https:\/\/schema\.org/, /^https:\/\/vuejs\.org\//, /^https?:\/\/www\.sitemaps\.org\//]
+// The parent company's own site, linked from the footer and named as the publisher in the structured data (links only, nothing is fetched).
+const allowed = [/^https:\/\/river-labs\.io\//, /^https?:\/\/www\.w3\.org\//, /^https:\/\/schema\.org/, /^https:\/\/vuejs\.org\//, /^https?:\/\/www\.sitemaps\.org\//]
 const siteOrigin = canonical ? new URL(canonical).origin : null
 for (const f of files.filter((f) => /\.(html|js|css|xml|txt)$/.test(f))) {
   const t = await readFile(f, 'utf8')

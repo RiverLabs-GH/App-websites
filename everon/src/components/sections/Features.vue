@@ -21,7 +21,7 @@ const themeNow = computed(() => th.value)
       <p class="sr" aria-live="polite">{{ shown.length }} features shown</p>
       <TransitionGroup tag="ul" name="fx" class="grid">
         <li v-for="x in shown" :key="x.id" class="card item">
-          <span class="chip" :class="x.tone">{{ x.tag }}</span><h3>{{ x.title }}</h3><p>{{ x.text }}</p>
+          <h3>{{ x.title }}</h3><p>{{ x.text }}</p>
         </li>
       </TransitionGroup>
 
@@ -46,7 +46,7 @@ const themeNow = computed(() => th.value)
 .chips button:hover, .seg button:hover { background: var(--press); } .chips button:active { transform: scale(.97); }
 .chips button[aria-pressed="true"], .seg button.on { background: var(--accent); color: var(--on-accent); }
 .grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: var(--s4); position: relative; }
-.item { display: grid; gap: var(--s2); align-content: start; background: var(--surface); } .item .chip { justify-self: start; } .item h3 { margin-top: var(--s2); }
+.item { display: grid; gap: var(--s2); align-content: start; background: var(--surface); } .item h3 { margin-top: var(--s2); }
 .fx-enter-active, .fx-leave-active, .fx-move { transition: opacity var(--dur-base) var(--ease-out), transform var(--dur-base) var(--ease-out); }
 .fx-enter-from { opacity: 0; transform: translateY(var(--dist-md)); } .fx-leave-active { position: absolute; width: calc((100% - 2 * var(--s4)) / 3); } .fx-leave-to { opacity: 0; transform: scale(.96); }
 .themes { margin-top: var(--s11); } .sub { font-size: 1.5rem; letter-spacing: -.015em; margin-bottom: var(--s4); }

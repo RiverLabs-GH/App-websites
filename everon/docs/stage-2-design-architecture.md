@@ -107,7 +107,7 @@ TOUR        sticky screen (left/centre) + 4 steps of copy (right)
             progress rail + step tabs
 TRUST       stated limit callout, truthful-status states strip (S01 states),
             safety settings screen (S14), privacy bullets
-FEATURES    workflow filter chips → 12 feature cards with status tags
+FEATURES    workflow filter chips → 12 feature cards
             themes strip (S12): 5 themes
 WHY         "basic toggle vs EverOn" six-row comparison + tray-state legend
 GET         "Coming soon for Mac" · Built for macOS 13 or later
