@@ -20,9 +20,9 @@ Nothing is committed. `git status` shows `README.md` (modified), `.github/workfl
 4. **Experiences:** instant control (real capture) and automation (interactive rule demo).
 5. **Tour:** four steps with a sticky stage, keyboard tabs, deep links (`#tour-automate`), real captures, one example timeline.
 6. **Trust:** limits, battery safeguard, honest status wording, the measured idle figure with its context.
-7. **Features:** 12 items with status tags, a workflow filter, a six-theme strip of real captures.
+7. **Features:** 13 feature cards (no status tags; restrictions stay as plain sentences in the card text), a workflow filter, a six-theme strip of real captures.
 8. **Why EverOn:** comparison table (stacked cards on mobile) and the five-state tray legend.
-9. **Get EverOn / footer:** "Coming soon for Mac" (not a link), "© 2026 RiverLabs.io", "From RiverLabs.io".
+9. **Get EverOn / footer:** "Coming soon for Mac" (not a link), "A RiverLabs.io product" (logo mark, linked to river-labs.io), the company contact, an "Also from RiverLabs.io" link to mark.O, and "© 2026 RiverLabs.io".
 10. `/screens/` catalogue (noindex) and a branded `404.html`.
 
 ## Generated screens to replace with captures

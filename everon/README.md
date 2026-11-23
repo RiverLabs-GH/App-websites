@@ -68,6 +68,10 @@ everon/
 
 Semantic landmarks, a skip link, visible focus, 44 px targets on the site, native controls where possible, a focus-trapped mobile menu, keyboard-operable demos and tour tabs. All motion uses the tokens in `src/styles/motion.css` and animates only `transform` and `opacity`. Under `prefers-reduced-motion`, there is no autoplay and no reveal or scroll movement, and the demos start in their final state and stay usable by click. Demo autoplay has a visible Pause control, and any click takes over.
 
+## Company and sibling product
+
+The parent company (`company` in `src/data/content.ts`) matches the mark.O site: name, link (`https://river-labs.io/`), contact and logo mark (`public/brand/riverlabs-logo.svg`, a copy of the company's favicon). The footer links to it and to mark.O, whose address follows `VITE_SITE_URL`. `npm run check` fails if the structured data's publisher and the footer link disagree.
+
 ## Deploy
 
 `.github/workflows/everon-ci.yml` checks pull requests. `deploy-everon.yml` publishes on a push to `main`.
