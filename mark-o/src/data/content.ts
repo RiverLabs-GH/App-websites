@@ -44,6 +44,7 @@ export const company = {
 
 export const nav = [
   { label: 'Overview', href: '#overview' },
+  { label: 'Who it’s for', href: '#for-everyone' },
   { label: 'Features', href: '#features' },
   { label: 'Product tour', href: '#tour' },
 ]
@@ -52,6 +53,7 @@ export const hero = {
   eyebrow: site.tagline,
   title: 'Your agents write Markdown. Read it like it matters.',
   lead: 'mark.O is a private, offline Markdown workspace for Mac. Read it properly, edit it live, keep every version, and review what your agents change.',
+  audience: 'Made for anyone who gets a Markdown file and just wants to read it: product managers, analysts, writers and team leads.',
   secondaryCta: { label: 'Watch the film', href: '#tour' },
   image: image('read', 'mark.O showing an agent-written market research brief, rendered with an outline, a callout and a table.'),
 }
@@ -82,6 +84,48 @@ export const problem = {
   ],
 }
 
+// The non-technical reader. Positioning supplied by the product owner; every feature named here
+// is already in the catalogue (render on open, outline and find, export, versions, offline, no account).
+export const audience = {
+  id: 'for-everyone',
+  eyebrow: 'For everyone',
+  title: 'Not a developer? Open a Markdown file and just read it.',
+  lead: 'Markdown is the plain-text format that AI tools and developers write in. In the wrong app it looks like clutter. mark.O shows it as the finished document, and you do not need to know Markdown to read it.',
+  before: {
+    label: 'In a plain-text app',
+    sample: [
+      '# Q3 market brief',
+      '',
+      '## What changed',
+      '- **Pricing:** two rivals cut prices',
+      '- Demand is *steady* in Europe',
+      '',
+      '| Region | Share |',
+      '|--------|-------|',
+      '| Europe | 42%   |',
+      '| US     | 31%   |',
+    ].join('\n'),
+  },
+  after: {
+    label: 'In mark.O',
+    img: image('read', 'mark.O showing an agent-written market research brief, rendered with an outline, a callout and a table.'),
+  },
+  tasksTitle: 'What you can do with it',
+  tasks: [
+    { title: 'Read it', text: 'It looks like a document the moment it opens. Tables, diagrams and formulas are drawn, and a long report has an outline and find.' },
+    { title: 'Share it', text: 'Export to PDF, HTML or EPUB, so people who do not have mark.O can open it too.' },
+    { title: 'See what changed', text: 'Compare any two versions side by side, and bring an earlier one back in one click.' },
+    { title: 'Keep it private', text: 'No account, no analytics, and it works offline. Your files stay in the folders you chose.' },
+  ],
+  rolesTitle: 'Who it helps',
+  roles: [
+    { title: 'Project managers', text: 'Read the plan, status report or spec someone wrote, and see what changed since you last looked.' },
+    { title: 'Analysts and researchers', text: 'Open a brief with its tables and diagrams drawn, then export it when it is ready to share.' },
+    { title: 'Writers and editors', text: 'Read drafts the way they will look, and keep every version in case you want the earlier one back.' },
+    { title: 'Team leads', text: 'Check what has been reviewed and what has not, before you rely on it.' },
+  ],
+}
+
 export interface Experience {
   id: string
   eyebrow: string
@@ -99,10 +143,10 @@ export const markdownReader: Experience = {
   title: 'Read any Markdown file or folder the way it was meant to be seen.',
   lead: 'Open a file and it reads like a finished document. Open a folder and work through it with tabs, an outline and find.',
   points: [
-    { title: 'Everything renders', text: 'GitHub-flavoured Markdown, math, Mermaid diagrams and highlighted code, all bundled so it works offline.' },
+    { title: 'Everything renders', text: 'Tables, task lists, math, diagrams and highlighted code, all bundled so it works offline.' },
     { title: 'It keeps up with the agent', text: 'When a file changes on disk, mark.O refreshes it right there. No reopening.' },
     { title: 'Long reports, short trips', text: 'An outline with reading progress, tabs, and find in page.' },
-    { title: 'Speaks Obsidian', text: 'Wikilinks, embeds, tags and callouts read correctly, so a vault opens as it was meant to.' },
+    { title: 'Opens Obsidian vaults', text: 'Notes with [[links]], embeds, tags and callouts read correctly, so a vault opens as it was meant to.' },
   ],
   main: image('render', 'mark.O rendering a Markdown report with a math equation, a highlighted Python snippet and a flow diagram.'),
 }
@@ -111,7 +155,7 @@ export const okfReader: Experience = {
   id: 'okf-reader',
   eyebrow: 'OKF Reader',
   title: 'An OKF reader for knowledge bundles, with a human in the loop.',
-  lead: 'Open a folder of agent-written Markdown as an Open Knowledge Format bundle. See it, review it, verify it, and keep it true.',
+  lead: 'Open a folder of agent-written Markdown as an Open Knowledge Format bundle: a plain folder of linked notes with a standard shape. See it, review it, verify it, and keep it true.',
   points: [
     { title: 'Understand a bundle in a minute', text: 'Every concept shows its type, tags, status, trust level and freshness. Footnotes resolve to their sources, and “Cited by” shows what points here.' },
     { title: 'See the shape', text: 'A graph coloured by type and ringed by trust. Find the path between two concepts, or filter search by type, tag, status and trust.' },
@@ -237,6 +281,7 @@ export const footer = {
   blurb: 'A private, offline Markdown workspace for macOS. Read. Write. Organise.',
   links: [
     { label: 'Overview', href: '#overview' },
+    { label: 'Who it’s for', href: '#for-everyone' },
     { label: 'Markdown Reader', href: '#markdown-reader' },
     { label: 'OKF Reader', href: '#okf-reader' },
     { label: 'Product tour', href: '#tour' },

@@ -3,6 +3,7 @@ import { markdownReader, okfReader } from './data/content'
 import Navbar from './components/Navbar.vue'
 import HeroSection from './components/HeroSection.vue'
 import ProblemSection from './components/ProblemSection.vue'
+import AudienceSection from './components/AudienceSection.vue'
 import ExperienceSection from './components/ExperienceSection.vue'
 import ProductShowcase from './components/ProductShowcase.vue'
 import FeatureSection from './components/FeatureSection.vue'
@@ -18,8 +19,9 @@ import Footer from './components/Footer.vue'
   <main id="main">
     <HeroSection />
     <ProblemSection />
-    <ExperienceSection :data="markdownReader" tone="alt" />
-    <ExperienceSection :data="okfReader" tone="plain" flip />
+    <AudienceSection />
+    <ExperienceSection :data="markdownReader" tone="plain" />
+    <ExperienceSection :data="okfReader" tone="alt" flip />
     <ProductShowcase />
     <FeatureSection />
     <DifferentiationSection />
