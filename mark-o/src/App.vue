@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { markdownReader, okfReader } from './data/content'
+import { assistant, markdownReader, okfReader } from './data/content'
 import Navbar from './components/Navbar.vue'
 import HeroSection from './components/HeroSection.vue'
 import ProblemSection from './components/ProblemSection.vue'
@@ -22,6 +22,7 @@ import Footer from './components/Footer.vue'
     <AudienceSection />
     <ExperienceSection :data="markdownReader" tone="plain" />
     <ExperienceSection :data="okfReader" tone="alt" flip />
+    <ExperienceSection :data="assistant" tone="plain" />
     <ProductShowcase />
     <FeatureSection />
     <DifferentiationSection />

@@ -110,12 +110,14 @@ To publish without a code change (for example after flipping `download.enabled`)
 
 - Fully offline, no account, no analytics, no telemetry.
 - macOS builds are ad-hoc signed and not notarized, so first launch needs right-click, then Open (shown in the final section).
-- No Windows build is published, so the site does not mention Windows.
+- No Windows build is published, so the site does not mention Windows. This is why the handoff's "Is it on Windows?" FAQ answer is not used.
+- The AI assistant is Mac-only, runs on Apple's on-device model (mark.O does not supply one), and is never called accurate or always right. It says "a recent macOS" until the assistant is tried on macOS 26 (ticket EP4-011 in the mark.O repo).
 - OKF trust labels are advisory, not security. mark.O is not affiliated with Google or Apple.
 - No price or privacy-policy page exists, so none is shown. The only contact is the RiverLabs.io email in the footer.
 
 ## Still needed
 
+- Publish the AI assistant section only with a release that includes it (the app is still 0.1.0 without it). The page has no FAQ, comparison table or `og:image` change for it; the handoff's FAQ and `ai-assistant-og.png` are unused.
 - A public release URL (flip the switch above).
 - A privacy page, if you want one in the footer.
 - Caption track for the film.

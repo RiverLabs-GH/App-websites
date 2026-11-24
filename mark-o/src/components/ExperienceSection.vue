@@ -26,7 +26,7 @@ withDefaults(defineProps<{ data: Experience; tone?: 'alt' | 'plain'; flip?: bool
         </ul>
       </div>
 
-      <div v-if="data.extras" class="extras">
+      <div v-if="data.extras" class="extras" :class="{ 'extras--one': data.extras.length === 1 }">
         <figure v-for="e in data.extras" :key="e.caption" v-reveal>
           <AppWindow :img="e.img" titlebar />
           <figcaption>{{ e.caption }}</figcaption>
@@ -45,6 +45,7 @@ withDefaults(defineProps<{ data: Experience; tone?: 'alt' | 'plain'; flip?: bool
 .points h3 { margin-bottom: var(--s-2); }
 .points p { color: var(--c-ink-2); }
 .extras { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-6); margin-top: var(--s-9); }
+.extras--one { grid-template-columns: minmax(0, 1fr); max-width: 52rem; margin-inline: auto; }
 .extras figcaption { margin-top: var(--s-4); font-size: var(--fs-small); color: var(--c-ink-3); max-width: 34rem; }
 .note { max-width: var(--w-text); margin: var(--s-8) auto 0; text-align: center; font-size: var(--fs-small); color: var(--c-ink-3); }
 @media (max-width: 960px) {
