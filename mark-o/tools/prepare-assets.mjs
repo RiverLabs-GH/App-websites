@@ -24,6 +24,13 @@ for (const n of main) {
   dims[`${n}`] = [r.width, r.height]
 }
 
+// AI assistant: raw app captures from docs/store-images/website (3000px source -> 2000px WebP)
+for (const n of ['ai-app-summary', 'ai-app-ask']) {
+  const r = await sharp(path.join(repo, 'docs/store-images/website', `${n}.png`)).resize({ width: 2000 }).webp({ quality: 80 })
+    .toFile(path.join(img, `${n}.webp`))
+  dims[`${n}`] = [r.width, r.height]
+}
+
 // Step captures for the product tour
 const steps = { detect: [0, 1, 2], verify: [0, 1, 2, 4], graph: [0, 1, 4], extend: [0, 2, 3], export: [0, 2, 4], search: [1, 3] }
 for (const [k, list] of Object.entries(steps)) {

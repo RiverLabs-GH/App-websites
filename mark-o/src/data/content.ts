@@ -170,6 +170,26 @@ export const okfReader: Experience = {
   note: 'Trust labels are advisory. They tell people what has been looked at; they are not security. OKF is an open specification, and mark.O is not affiliated with Google.',
 }
 
+// On-device AI assistant. Copy from the mark.O repo's docs/product/website-ai-handoff.md.
+// Its "must not say" list is binding: no Windows or Intel Macs, never "accurate" or "always right", no claim that
+// mark.O supplies a model (it is Apple's), nothing across a whole folder, no "offline" without the first-run note.
+export const assistant: Experience = {
+  id: 'assistant',
+  eyebrow: 'AI assistant',
+  title: 'Summarise it. Ask it. On your Mac.',
+  lead: 'When an agent hands you forty pages, mark.O gives you the gist and the answer, with the section each one came from.',
+  points: [
+    { title: 'Summarise in one click.', text: 'A one-line summary and the key points, each linked to the section it came from. Pick Short, Medium or Detailed from a single button. Insert it at the top of the note, and undo it like any other edit.' },
+    { title: 'Ask the note.', text: '“Who approves a 55 USD refund?” The answer comes from the note, names the section and line, and says so when the note does not say. Ask about the whole note or just the passage you selected.' },
+    { title: 'Private by design.', text: 'It runs on Apple Intelligence, on your Mac. Your notes are not sent to a server, and there is no account, key or subscription to set up.' },
+  ],
+  main: image('ai-app-summary', 'The mark.O Assistant panel beside a note, showing a one-line summary and key points that link to the sections they came from.'),
+  extras: [
+    { img: image('ai-app-ask', 'The mark.O Assistant answering a question about a note and naming the sections the answer came from.'), caption: 'Ask the note. The answer names the sections it came from.' },
+  ],
+  note: 'Check it, don’t trust it: every point and every answer links to where it came from.',
+}
+
 export const tour = {
   id: 'tour',
   eyebrow: 'Product tour',
@@ -269,6 +289,8 @@ export const finalCta = {
   title: 'Open one agent-written file. Then open a bundle.',
   lead: 'You will see the difference in a minute.',
   meta: 'For macOS, Apple Silicon and Intel.',
+  // The assistant is narrower than the app. Nothing here about Windows, and no macOS number until it is tried on macOS 26.
+  assistantMeta: 'The AI assistant needs a Mac with Apple silicon, a recent macOS and Apple Intelligence turned on.',
   guide: {
     summary: 'First launch on a Mac',
     text: 'mark.O builds are not notarized yet. On first launch, right-click the app and choose Open. Or, in Terminal:',
@@ -284,10 +306,11 @@ export const footer = {
     { label: 'Who it’s for', href: '#for-everyone' },
     { label: 'Markdown Reader', href: '#markdown-reader' },
     { label: 'OKF Reader', href: '#okf-reader' },
+    { label: 'AI assistant', href: '#assistant' },
     { label: 'Product tour', href: '#tour' },
     { label: 'Features', href: '#features' },
     { label: 'Why mark.O', href: '#why' },
     { label: 'Private by design', href: '#privacy' },
   ],
-  legal: 'mark.O is not affiliated with or endorsed by Google or Apple.',
+  legal: 'mark.O is not affiliated with or endorsed by Google or Apple. Apple Intelligence is a trademark of Apple Inc.',
 }

@@ -11,6 +11,7 @@ import DownloadButton from './DownloadButton.vue'
       <div class="cta__action">
         <DownloadButton large />
         <p class="meta">{{ finalCta.meta }}</p>
+        <p class="meta">{{ finalCta.assistantMeta }}</p>
       </div>
       <details class="guide">
         <summary>{{ finalCta.guide.summary }}</summary>
