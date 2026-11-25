@@ -53,6 +53,10 @@ Copy lives in `src/data/content.ts`, not in the components. Every claim there co
 
 The parent company (RiverLabs.io: name, link, contact email and logo mark) is one `company` entry in `src/data/content.ts`. The footer, the structured data's publisher, the `author` meta tag and the 404 page all read it, and `npm run check` fails if they disagree. The logo mark in `public/images/riverlabs-logo.svg` is a copy of the company site's own favicon (https://river-labs.io/favicon.svg).
 
+## Privacy policy
+
+`/privacy/` is a public page with the app's privacy policy, for the App Store listing's Privacy Policy URL. Its text is `src/content/privacy.md`, a copy of `assets/legal/privacy.md` in the mark.O repo; `npm run assets` refreshes the copy, and `tools/prerender.mjs` turns it into `dist/privacy/index.html` (also listed in the sitemap and linked from the footer). To change the policy, change it in the mark.O repo, run `npm run assets`, and publish.
+
 ## The download button
 
 The site shows **Coming soon for Mac** until the release can be reached by the public. The v0.1.0 release URL is already in `src/data/content.ts`.

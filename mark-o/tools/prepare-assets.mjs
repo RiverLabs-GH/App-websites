@@ -68,6 +68,10 @@ for (let i = 0; i < data.length; i++) {
 await sharp(rgba, { raw: { width: info.width, height: info.height, channels: 4 } }).trim().resize({ height: 120 })
   .png().toFile(path.join(img, 'wordmark.png'))
 
+// Privacy policy: the site publishes a copy of the app's own policy at privacy/
+await mkdir(path.resolve('src/content'), { recursive: true })
+await copyFile(path.join(repo, 'assets/legal/privacy.md'), path.resolve('src/content/privacy.md'))
+
 // Fonts
 for (const f of ['inter-latin.woff2', 'jetbrains-mono-latin.woff2']) {
   const src = path.join(repo, 'product-video/public/fonts', f)

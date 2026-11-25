@@ -171,6 +171,30 @@ for (const css of files.filter((f) => f.endsWith('.css'))) {
   }
 }
 
+// 7e2. The privacy policy page exists at privacy/, is listed in the sitemap, has its own canonical, and the footer links to it.
+{
+  const fp = path.join(dist, 'privacy/index.html')
+  if (!existsSync(fp)) fail('missing privacy/index.html')
+  else {
+    const t = await readFile(fp, 'utf8')
+    if ((t.match(/<h1[\s>]/g) || []).length !== 1) fail('privacy/index.html must have exactly one <h1>')
+    if (!/<title>Privacy policy \| mark\.O<\/title>/.test(t)) fail('privacy/index.html has no "Privacy policy | mark.O" title')
+    if (/noindex/.test(t)) fail('privacy/index.html must be indexable, not noindex')
+    if (!/<p class="updated">Last updated: [^<]+<\/p>/.test(t)) fail('privacy/index.html shows no last-updated date')
+    if (!/Apple Intelligence/.test(t)) fail('privacy/index.html does not cover the assistant (Apple Intelligence)')
+    const pc = t.match(/rel="canonical" href="([^"]+)"/)?.[1]
+    if (!canonical || pc !== `${canonical}privacy/`) fail(`privacy canonical is ${pc}, expected ${canonical}privacy/`)
+    for (const m of t.matchAll(/(?:src|href)="([^"]+)"/g)) {
+      if (m[1].startsWith('#') || m[1].startsWith('mailto:')) continue
+      if (!/^https?:\/\//.test(m[1])) fail(`privacy/index.html has a relative URL ${m[1]}; use an absolute URL`)
+      else if (canonical && m[1].startsWith(canonical) && m[1] !== canonical && !existsSync(path.join(dist, m[1].slice(canonical.length)))) fail(`privacy/index.html refers to ${m[1]}, which has no file in dist`)
+    }
+    const sm = existsSync(path.join(dist, 'sitemap.xml')) ? await readFile(path.join(dist, 'sitemap.xml'), 'utf8') : ''
+    if (canonical && !sm.includes(`<loc>${canonical}privacy/</loc>`)) fail('sitemap.xml does not list the privacy page')
+    if (!html.includes('href="./privacy/"')) fail('the home page footer does not link to ./privacy/')
+  }
+}
+
 // 7f. The parent company appears in the footer (link, contact, copyright) and the author tag, and each agrees
 // with the structured data, which is generated from the same company entry.
 if (publisher?.name && publisher.url && publisher.email) {

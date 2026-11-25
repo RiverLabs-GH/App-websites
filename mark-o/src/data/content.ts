@@ -311,6 +311,7 @@ export const footer = {
     { label: 'Features', href: '#features' },
     { label: 'Why mark.O', href: '#why' },
     { label: 'Private by design', href: '#privacy' },
+    { label: 'Privacy policy', href: './privacy/' },
   ],
   legal: 'mark.O is not affiliated with or endorsed by Google or Apple. Apple Intelligence is a trademark of Apple Inc.',
 }
