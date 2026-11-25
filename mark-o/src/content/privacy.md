@@ -28,6 +28,6 @@ If this policy changes, the new version will ship with the app and the "last upd
 
 ## Questions
 
-Use the support link on mark.O's App Store page.
+Email riverlabs.io@gmail.com, or use the support link on mark.O's App Store page.
 
 Apple and Apple Intelligence are trademarks of Apple Inc. mark.O is not endorsed by or affiliated with Apple.

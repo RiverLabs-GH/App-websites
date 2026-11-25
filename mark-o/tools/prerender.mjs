@@ -72,7 +72,9 @@ a:focus-visible{outline:2px solid #2457c5;outline-offset:3px}
 // src/content/privacy.md, a copy of assets/legal/privacy.md in the mark.O repo (`npm run assets` refreshes it).
 // Like the 404 page it is self-contained, with absolute URLs, so it does not depend on the Vue bundle.
 const esc = (t) => t.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
-const inline = (t) => esc(t).replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+const inline = (t) => esc(t)
+  .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+  .replace(/[\w.+-]+@[\w-]+(?:\.[\w-]+)+/g, '<a href="mailto:$&">$&</a>')
 function mdToHtml(md) {
   const out = []
   let list = false
